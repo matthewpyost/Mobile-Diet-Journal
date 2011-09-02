@@ -1,0 +1,23 @@
+﻿@model DateTime
+@{
+    ViewBag.Title = "My Diet Journal";
+    Layout = "~/Views/Journal/_Layout.cshtml";
+}
+
+<center>
+<table>
+    <tr>
+	    <td><a href="@Url.Action("Index", new { date = Model.AddDays(-1) } )" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-direction="reverse" data-transition="slide">Previous</a></td>
+	    <td><input id="datepicker" type="text" value="@Model.ToLongDateString()" readonly="readonly" /></td>
+        <td><a href="@Url.Action("Index", new { date = Model.AddDays(1) } )" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-transition="slide">Next</a></td>
+    </tr>
+</table>
+</center>
+<br />
+<br />
+<ul data-role="listview">
+	<li>@Html.ActionLink("Food", "Food", new { date = Model })</li>
+    <li>@Html.ActionLink("Water", "Water", new { date = Model })</li>
+    <li>@Html.ActionLink("Exercise", "Exercise", new { date = Model })</li>
+	<li>@Html.ActionLink("Supplements", "Supplements", new { date = Model })</li>
+</ul>

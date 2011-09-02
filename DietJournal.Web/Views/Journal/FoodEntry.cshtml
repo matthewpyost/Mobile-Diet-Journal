@@ -1,0 +1,96 @@
+﻿@model DietJournal.Web.Models.FoodEntryModel
+@{
+    ViewBag.Title = "Food Entry";
+    Layout = "~/Views/Journal/_Layout.cshtml";
+}
+
+<script type="text/javascript">    
+
+    function onSuccess(data) {
+        if (data.IsValid) {
+            $.mobile.changePage(data.ReturnUrl,
+            {
+                transition: "slide",
+                reverse: true,
+                reloadPage: true
+            });
+        }
+        else {
+            
+        }
+    }
+
+    $(document).ready(function () {
+        $("#foodEntryForm").submit(function () {
+            $.ajax({
+                url: $(this).attr("action"),
+                type: "post",
+                data: $(this).serialize(),
+                success: onSuccess
+            });
+            return false;
+        });
+    });
+
+</script>
+
+@using (Html.BeginForm("FoodEntry", "Journal", FormMethod.Post, new { id = "foodEntryForm" }))
+{
+    @Html.ValidationSummary(true, "Food entry submit/update was unsuccessful. Please correct the errors and try again.")
+    <div>
+        <fieldset>
+            <legend>Food Entry Details</legend>
+
+            <div class="editor-field" data-role="fieldcontain">
+            
+                @Html.DropDownListFor(m => m.Meal, Model.MealTypes)
+                @Html.ValidationMessageFor(m => m.Meal)
+
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title)
+                @Html.ValidationMessageFor(m => m.Title)
+
+                @Html.LabelFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+
+                <div data-role="collapsible"  data-collapsed="true">
+	                <h3>Additional Info (optional)</h3>
+                    <p>
+                    @Html.LabelFor(m => m.Calories)
+                    @Html.TextBoxFor(m => m.Calories, new { type = "number" })
+                    @Html.ValidationMessageFor(m => m.Calories)
+
+                    @Html.LabelFor(m => m.Fat)
+                    @Html.TextBoxFor(m => m.Fat, new { type = "number" })
+                    @Html.ValidationMessageFor(m => m.Fat)
+
+                    @Html.LabelFor(m => m.Carbs)
+                    @Html.TextBoxFor(m => m.Carbs, new { type = "number" })
+                    @Html.ValidationMessageFor(m => m.Carbs)
+
+                    @Html.LabelFor(m => m.Protein)
+                    @Html.TextBoxFor(m => m.Protein, new { type = "number" })
+                    @Html.ValidationMessageFor(m => m.Protein)
+                    </p>
+                </div>
+            </div>
+
+            <p>
+                @if (Model.Id <= 0)
+                {
+                <input type="submit" value="Submit" data-theme="b"/>
+                <input type="reset" value="Cancel" data-theme="e" onclick="history.back()"/>
+                }
+                else
+                {
+                <input type="submit" value="Update" data-theme="b" />
+                <input type="button" value="Delete" data-theme="e" onclick="return confirm('Are you sure you wish to delete this entry?')" />
+                }
+            </p>
+        </fieldset>
+    </div>
+    
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ConsumedDate)
+}

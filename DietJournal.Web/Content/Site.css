@@ -1,0 +1,19 @@
+﻿.footer
+{
+    text-align:center
+}
+
+.footer a
+{
+    font-size:small;
+    margin:3px;
+}
+
+legend
+{
+    font-weight:bold;
+}
+.directions
+{
+    font-style:italic;
+}

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="ftp://ftp.fastdietjournal.com" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Services" publishMethod="FTP" replaceMatchingFiles="True" userName="ftp.fastdietjournal.com|apicode" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAM5v+cuV8SkWK2iCzwyv/JQAAAAACAAAAAAADZgAAwAAAABAAAAAo/GeZ7q4m0B4yip1rtwc+AAAAAASAAACgAAAAEAAAAHb/YAEZDsl0ucA3kTylGEIYAAAAlzAYobnFl9mFRhBl4AnXZv2Q3pnxqYXlFAAAAGPUkGJ0A8/QnMDwKUxdX7ycF/C/" SelectedForPublish="True">
+    <file relUrl="bin/DietJournal.Services.dll" publishTime="08/01/2011 22:45:49" />
+    <file relUrl="bin/DietJournal.Services.pdb" publishTime="08/01/2011 22:45:49" />
+    <file relUrl="AccountService.svc" publishTime="08/01/2011 22:15:11" />
+    <file relUrl="Web.config" publishTime="08/01/2011 23:50:13" />
+    <file relUrl="JournalService.svc" publishTime="08/01/2011 21:14:43" />
+  </publishProfile>
+</publishData>

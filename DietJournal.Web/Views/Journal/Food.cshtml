@@ -1,0 +1,24 @@
+﻿@model DietJournal.Web.Models.FoodEntriesModel
+@{
+    ViewBag.Title = "Food";
+    Layout = "~/Views/Journal/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <ul data-role="listview">
+        <li data-icon="plus"><a href="@Url.Action("AddFoodEntry", new { date = Model.EntriesDate })" data-transition="slideup"><h2>@Model.EntriesDate.ToLongDateString()</h2></a></li>
+    @foreach (var meal in Model)
+    {
+        <li data-role="list-divider">@meal.Key</li>
+        
+        if (meal.Value != null)
+        {
+            foreach (var entry in meal.Value)
+            {
+        <li><a href="@Url.Action("FoodEntry", new { id = entry.Id })">@entry.Title</a><span class="ui-li-count">@(entry.Calories > 0 ? entry.Calories.ToString("#.#") : "0") cal</span></li>
+            }
+        }
+    }
+    </ul>
+}

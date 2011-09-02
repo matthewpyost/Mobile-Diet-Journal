@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietJournal.Web", "DietJournal.Web\DietJournal.Web.csproj", "{15685E2A-CBBE-4816-AB7B-A18B89B1F897}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietJournal.Main", "DietJournal.Main\DietJournal.Main.csproj", "{518D8BD9-4D04-49CE-A1C3-499FF1FB3908}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietJournal.Services", "DietJournal.Services\DietJournal.Services.csproj", "{B6BC3DC5-8889-4959-89DC-02841A754F63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15685E2A-CBBE-4816-AB7B-A18B89B1F897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15685E2A-CBBE-4816-AB7B-A18B89B1F897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15685E2A-CBBE-4816-AB7B-A18B89B1F897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15685E2A-CBBE-4816-AB7B-A18B89B1F897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{518D8BD9-4D04-49CE-A1C3-499FF1FB3908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{518D8BD9-4D04-49CE-A1C3-499FF1FB3908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{518D8BD9-4D04-49CE-A1C3-499FF1FB3908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{518D8BD9-4D04-49CE-A1C3-499FF1FB3908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6BC3DC5-8889-4959-89DC-02841A754F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6BC3DC5-8889-4959-89DC-02841A754F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6BC3DC5-8889-4959-89DC-02841A754F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6BC3DC5-8889-4959-89DC-02841A754F63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

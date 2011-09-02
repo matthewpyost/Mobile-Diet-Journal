@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div data-role="page">
+    <div data-role="header" data-position="inline" class="header">
+        @if (ViewBag.Back != null && ViewBag.Back == true)
+        {
+            if (ViewBag.Date != null)
+            {
+        <a href="@Url.Action("Index", new { date = ViewBag.Date })" data-icon="back" data-direction="reverse">Back</a>
+            }
+            else
+            {
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+            }
+        }
+        <h2>@ViewBag.Title</h2>
+        <a href="@Url.Action("LogOff", "Account")" data-icon="delete" class="ui-btn-right" data-ajax="false">Logout</a>
+    </div>
+	<div data-role="content" class="body">	
+		@RenderBody()
+	</div>
+	<div data-id="myfooter" data-role="footer" data-position="fixed" class="footer">
+	    <div data-role="navbar">
+		    <ul>
+			    <li><a href="#" class="ui-btn-active" data-icon="grid">Entries</a></li>
+			    <li><a href="#" data-icon="star">Favorites</a></li>
+                <li><a href="#" data-icon="gear">Settings</a></li>
+		    </ul>
+	    </div>
+	</div>
+</div>

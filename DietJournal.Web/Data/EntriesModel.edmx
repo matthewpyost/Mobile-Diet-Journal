@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DietJournal.Data.Entries.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="DietJournalDataEntriesStoreContainer">
+          <EntitySet Name="BloodPressureEntries" EntityType="DietJournal.Data.Entries.Store.BloodPressureEntries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ExerciseEntries" EntityType="DietJournal.Data.Entries.Store.ExerciseEntries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FoodEntries" EntityType="DietJournal.Data.Entries.Store.FoodEntries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SupplementEntries" EntityType="DietJournal.Data.Entries.Store.SupplementEntries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WaterEntries" EntityType="DietJournal.Data.Entries.Store.WaterEntries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WeightEntries" EntityType="DietJournal.Data.Entries.Store.WeightEntries" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="BloodPressureEntries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Systolic" Type="int" Nullable="false" />
+          <Property Name="Diastolic" Type="int" Nullable="false" />
+          <Property Name="HearttRate" Type="int" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="SavedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExerciseEntries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Calories" Type="decimal" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="SavedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodEntries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Meal" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Calories" Type="decimal" />
+          <Property Name="Carbs" Type="decimal" />
+          <Property Name="Fat" Type="decimal" />
+          <Property Name="Protein" Type="decimal" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="SavedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplementEntries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Miligrams" Type="decimal" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="SavedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WaterEntries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Ounces" Type="decimal" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="SavedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeightEntries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="SavedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Function Name="spGetUserEntriesForDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DietJournal.Data.Entries" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DietjournalEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <EntitySet Name="BloodPressureEntries" EntityType="DietJournal.Data.Entries.BloodPressureEntry" />
+          <EntitySet Name="ExerciseEntries" EntityType="DietJournal.Data.Entries.ExerciseEntry" />
+          <EntitySet Name="FoodEntries" EntityType="DietJournal.Data.Entries.FoodEntry" />
+          <EntitySet Name="SupplementEntries" EntityType="DietJournal.Data.Entries.SupplementEntry" />
+          <EntitySet Name="WaterEntries" EntityType="DietJournal.Data.Entries.WaterEntry" />
+          <EntitySet Name="WeightEntries" EntityType="DietJournal.Data.Entries.WeightEntry" />
+        </EntityContainer>
+        <EntityType Name="BloodPressureEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Guid" />
+          <Property Name="Systolic" Type="Int32" Nullable="false" />
+          <Property Name="Diastolic" Type="Int32" Nullable="false" />
+          <Property Name="HearttRate" Type="Int32" Nullable="false" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" />
+          <Property Type="DateTime" Name="SavedDate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExerciseEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Guid" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Calories" Type="Decimal" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" />
+          <Property Type="DateTime" Name="SavedDate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Guid" />
+          <Property Name="Meal" Type="Int32" Nullable="false" a:GetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Protected" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Calories" Type="Decimal" Precision="18" Scale="0" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Carbs" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Fat" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Protein" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" />
+          <Property Type="DateTime" Name="SavedDate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupplementEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Guid" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Miligrams" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" />
+          <Property Type="DateTime" Name="SavedDate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WaterEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Guid" />
+          <Property Name="Ounces" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" />
+          <Property Type="DateTime" Name="SavedDate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeightEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Guid" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="EntryDate" Nullable="false" />
+          <Property Type="DateTime" Name="SavedDate" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DietJournalDataEntriesStoreContainer" CdmEntityContainer="DietjournalEntities">
+          <EntitySetMapping Name="BloodPressureEntries"><EntityTypeMapping TypeName="DietJournal.Data.Entries.BloodPressureEntry"><MappingFragment StoreEntitySet="BloodPressureEntries">
+            <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Systolic" ColumnName="Systolic" />
+            <ScalarProperty Name="Diastolic" ColumnName="Diastolic" />
+            <ScalarProperty Name="HearttRate" ColumnName="HearttRate" />
+            </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ExerciseEntries"><EntityTypeMapping TypeName="DietJournal.Data.Entries.ExerciseEntry"><MappingFragment StoreEntitySet="ExerciseEntries">
+            <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Type" ColumnName="Type" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Calories" ColumnName="Calories" />
+            </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="FoodEntries"><EntityTypeMapping TypeName="DietJournal.Data.Entries.FoodEntry"><MappingFragment StoreEntitySet="FoodEntries">
+            <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Protein" ColumnName="Protein" />
+                <ScalarProperty Name="Fat" ColumnName="Fat" />
+                <ScalarProperty Name="Carbs" ColumnName="Carbs" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Meal" ColumnName="Meal" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Calories" ColumnName="Calories" />
+            </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SupplementEntries"><EntityTypeMapping TypeName="DietJournal.Data.Entries.SupplementEntry"><MappingFragment StoreEntitySet="SupplementEntries">
+            <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Miligrams" ColumnName="Miligrams" />
+            </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WaterEntries"><EntityTypeMapping TypeName="DietJournal.Data.Entries.WaterEntry"><MappingFragment StoreEntitySet="WaterEntries">
+            <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Ounces" ColumnName="Ounces" />
+            </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WeightEntries"><EntityTypeMapping TypeName="DietJournal.Data.Entries.WeightEntry"><MappingFragment StoreEntitySet="WeightEntries">
+            <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Amount" ColumnName="Amount" />
+            </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="EntriesModel">
+        <EntityTypeShape EntityType="DietJournal.Data.Entries.BloodPressureEntry" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="DietJournal.Data.Entries.ExerciseEntry" Width="1.5" PointX="2.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="DietJournal.Data.Entries.FoodEntry" Width="1.5" PointX="4.75" PointY="0.75" Height="3.1340950520833331" IsExpanded="true" />
+        <EntityTypeShape EntityType="DietJournal.Data.Entries.SupplementEntry" Width="1.5" PointX="0.75" PointY="4.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="DietJournal.Data.Entries.WaterEntry" Width="1.5" PointX="2.75" PointY="4.75" Height="1.9802864583333326" IsExpanded="true" />
+        <EntityTypeShape EntityType="DietJournal.Data.Entries.WeightEntry" Width="1.5" PointX="4.75" PointY="4.75" Height="1.9802864583333326" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

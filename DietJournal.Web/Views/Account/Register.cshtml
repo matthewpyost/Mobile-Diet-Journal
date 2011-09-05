@@ -6,9 +6,6 @@
 }
 
 <p class="directions">
-    Use the form below to create a new account. 
-</p>
-<p class="directions">
     Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength characters in length.
 </p>
 
@@ -17,29 +14,27 @@
 
 <form id="registerForm" action="/Account/Register" method="post" data-transition="none">
     @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
-    <div>
-        <fieldset>
-            <legend>Account Information</legend>
-
-            <div class="editor-field" data-role="fieldcontain">
-                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email address" })
-                @Html.ValidationMessageFor(m => m.Email)
-            </div>
-
-            <div class="editor-field" data-role="fieldcontain">
-                @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
-
-            <div class="editor-field" data-role="fieldcontain">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm password" })
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </div>
-
-            <p>
-                <input type="submit" value="Register" />
-                <a href="/" data-role="button" data-direction="reverse" data-transition="slideup">Cancel</a>
-            </p>
-        </fieldset>
-    </div>
+    
+    <ul data-role="listview" data-theme="d" data-inset="true">
+        <li data-role="list-divider">Account Information</li>
+        <li>
+            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email address" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </li>
+        <li>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+            @Html.ValidationMessageFor(m => m.Password)
+        </li>
+        <li>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm password" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </li>
+        <li>
+            @Html.DropDownListFor(m => m.DietPlanId, Model.AvailableDietPlans)
+        </li>
+    </ul>
+    <p>
+        <input type="submit" value="Register" />
+        <a href="/" data-role="button" data-direction="reverse" data-transition="slideup">Cancel</a>
+    </p>
 </form>

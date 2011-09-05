@@ -1,0 +1,36 @@
+﻿@model DietJournal.Web.Models.ProfileSettingsModel
+
+
+<form id="signupForm" action="/Account/ProfileSettings" method="post" data-transition="none">
+    <ul data-role="listview" data-theme="d" data-inset="true">
+        <li data-role="list-divider">Personal Info</li>
+        <li>@Html.TextBoxFor(m => m.FirstName, new { placeholder = "First name" })</li>
+        <li>@Html.TextBoxFor(m => m.LastName, new { placeholder = "Last name" })</li>
+        <li><input id="Birthday" name="Birthday" type="date" data-role="datebox" data-options='{"mode": "flipbox"}' readonly="readonly" placeholder="Birthday" value="@Model.Birthday" /></li>
+        <li>
+            <fieldset data-role="controlgroup" data-type="horizontal" >
+                <legend></legend>
+         	    <input type="radio" name="Gender" id="MaleChoice" value="1" @(Model.Gender == 1 ? "checked" : "") />
+         	    <label for="MaleChoice">Male</label>
+         	    <input type="radio" name="Gender" id="FemailChoice" value="2" @(Model.Gender == 2 ? "checked" : "") />
+         	    <label for="FemailChoice">Female</label>
+            </fieldset>
+        </li>
+    </ul>
+    <ul data-role="listview" data-theme="d" data-inset="true">
+        <li data-role="list-divider">Journal Options</li>
+        <li>@Html.DropDownListFor(m => m.DietPlanId, Model.AvailableDietPlans)</li>
+        <li>
+            @Html.CheckBoxFor(m => m.CaptureCalories, new { Class = "custom" })@Html.LabelFor(m => m.CaptureCalories)
+            @Html.LabelFor(m => m.CaloriesGoal)@Html.TextBoxFor(m => m.CaloriesGoal, new { type = "number" })
+        </li>
+        <li>@Html.CheckBoxFor(m => m.CaptureCarbs, new { Class = "custom" })@Html.LabelFor(m => m.CaptureCarbs)</li>
+        <li>@Html.CheckBoxFor(m => m.CaptureFat, new { Class = "custom" })@Html.LabelFor(m => m.CaptureFat)</li>
+        <li>@Html.CheckBoxFor(m => m.CaptureProtein, new { Class = "custom" })@Html.LabelFor(m => m.CaptureProtein)</li>
+        <li>@Html.LabelFor(m => m.WeightGoal)@Html.TextBoxFor(m => m.WeightGoal, new { type = "number" })</li>
+    </ul>
+
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+</form>

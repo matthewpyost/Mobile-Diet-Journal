@@ -4,14 +4,43 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DietJournal.Entities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="DietJournal.Entities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="DietJournalEntitiesStoreContainer">
           <EntitySet Name="BloodPressureEntries" EntityType="DietJournal.Entities.Store.BloodPressureEntries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DietPlanEntryTypeValues" EntityType="DietJournal.Entities.Store.DietPlanEntryTypeValues" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DietPlans" EntityType="DietJournal.Entities.Store.DietPlans" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ExerciseEntries" EntityType="DietJournal.Entities.Store.ExerciseEntries" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FoodEntries" EntityType="DietJournal.Entities.Store.FoodEntries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FoodEntryAdditionalValues" EntityType="DietJournal.Entities.Store.FoodEntryAdditionalValues" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FoodFavorites" EntityType="DietJournal.Entities.Store.FoodFavorites" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProfileSettings" EntityType="DietJournal.Entities.Store.ProfileSettings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SupplementEntries" EntityType="DietJournal.Entities.Store.SupplementEntries" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WaterEntries" EntityType="DietJournal.Entities.Store.WaterEntries" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WeightEntries" EntityType="DietJournal.Entities.Store.WeightEntries" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_DietPlanEntryTypeValues_DietPlans" Association="DietJournal.Entities.Store.FK_DietPlanEntryTypeValues_DietPlans">
+            <End Role="DietPlans" EntitySet="DietPlans" />
+            <End Role="DietPlanEntryTypeValues" EntitySet="DietPlanEntryTypeValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DietPlans_DietPlans" Association="DietJournal.Entities.Store.FK_DietPlans_DietPlans">
+            <End Role="DietPlans" EntitySet="DietPlans" />
+            <End Role="DietPlans1" EntitySet="DietPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues" Association="DietJournal.Entities.Store.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues">
+            <End Role="DietPlanEntryTypeValues" EntitySet="DietPlanEntryTypeValues" />
+            <End Role="FoodEntryAdditionalValues" EntitySet="FoodEntryAdditionalValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodEntryAdditionalValues_FoodEntries" Association="DietJournal.Entities.Store.FK_FoodEntryAdditionalValues_FoodEntries">
+            <End Role="FoodEntries" EntitySet="FoodEntries" />
+            <End Role="FoodEntryAdditionalValues" EntitySet="FoodEntryAdditionalValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodFavorites_DietPlans" Association="DietJournal.Entities.Store.FK_FoodFavorites_DietPlans">
+            <End Role="DietPlans" EntitySet="DietPlans" />
+            <End Role="FoodFavorites" EntitySet="FoodFavorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileSettings_DietPlans" Association="DietJournal.Entities.Store.FK_ProfileSettings_DietPlans">
+            <End Role="DietPlans" EntitySet="DietPlans" />
+            <End Role="ProfileSettings" EntitySet="ProfileSettings" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BloodPressureEntries">
           <Key>
@@ -24,6 +53,28 @@
           <Property Name="HearttRate" Type="int" Nullable="false" />
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="SavedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DietPlanEntryTypeValues">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DietPlanId" Type="int" Nullable="false" />
+          <Property Name="EntryType" Type="int" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="255" />
+          <Property Name="ValueType" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="PossibleValues" Type="nvarchar(max)" />
+          <Property Name="IsRequired" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DietPlans">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ExerciseEntries">
           <Key>
@@ -52,6 +103,46 @@
           <Property Name="Protein" Type="decimal" />
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="SavedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodEntryAdditionalValues">
+          <Key>
+            <PropertyRef Name="FoodEntryId" />
+            <PropertyRef Name="DietPlanEntryTypeValueId" />
+          </Key>
+          <Property Name="FoodEntryId" Type="int" Nullable="false" />
+          <Property Name="DietPlanEntryTypeValueId" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="FoodFavorites">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="DietPlanId" Type="int" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="Calories" Type="decimal" />
+          <Property Name="Carbs" Type="decimal" />
+          <Property Name="Fat" Type="decimal" />
+          <Property Name="Protein" Type="decimal" />
+        </EntityType>
+        <EntityType Name="ProfileSettings">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DietPlanId" Type="int" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+          <Property Name="BirthDay" Type="date" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="CaptureCalories" Type="bit" Nullable="false" />
+          <Property Name="CaptureFat" Type="bit" Nullable="false" />
+          <Property Name="CaptureCarbs" Type="bit" Nullable="false" />
+          <Property Name="CaptureProtein" Type="bit" Nullable="false" />
+          <Property Name="WeightGoal" Type="int" />
+          <Property Name="CaloriesGoal" Type="int" />
         </EntityType>
         <EntityType Name="SupplementEntries">
           <Key>
@@ -84,8 +175,79 @@
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="SavedDate" Type="datetime" Nullable="false" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+        <Association Name="FK_DietPlanEntryTypeValues_DietPlans">
+          <End Role="DietPlans" Type="DietJournal.Entities.Store.DietPlans" Multiplicity="1" />
+          <End Role="DietPlanEntryTypeValues" Type="DietJournal.Entities.Store.DietPlanEntryTypeValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DietPlanEntryTypeValues">
+              <PropertyRef Name="DietPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DietPlans_DietPlans">
+          <End Role="DietPlans" Type="DietJournal.Entities.Store.DietPlans" Multiplicity="0..1" />
+          <End Role="DietPlans1" Type="DietJournal.Entities.Store.DietPlans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DietPlans1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues">
+          <End Role="DietPlanEntryTypeValues" Type="DietJournal.Entities.Store.DietPlanEntryTypeValues" Multiplicity="1" />
+          <End Role="FoodEntryAdditionalValues" Type="DietJournal.Entities.Store.FoodEntryAdditionalValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlanEntryTypeValues">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FoodEntryAdditionalValues">
+              <PropertyRef Name="DietPlanEntryTypeValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodEntryAdditionalValues_FoodEntries">
+          <End Role="FoodEntries" Type="DietJournal.Entities.Store.FoodEntries" Multiplicity="1" />
+          <End Role="FoodEntryAdditionalValues" Type="DietJournal.Entities.Store.FoodEntryAdditionalValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodEntries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FoodEntryAdditionalValues">
+              <PropertyRef Name="FoodEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodFavorites_DietPlans">
+          <End Role="DietPlans" Type="DietJournal.Entities.Store.DietPlans" Multiplicity="0..1" />
+          <End Role="FoodFavorites" Type="DietJournal.Entities.Store.FoodFavorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FoodFavorites">
+              <PropertyRef Name="DietPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfileSettings_DietPlans">
+          <End Role="DietPlans" Type="DietJournal.Entities.Store.DietPlans" Multiplicity="0..1" />
+          <End Role="ProfileSettings" Type="DietJournal.Entities.Store.ProfileSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileSettings">
+              <PropertyRef Name="DietPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DietJournal.Entities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -96,6 +258,35 @@
           <EntitySet Name="SupplementEntries" EntityType="DietJournal.Entities.SupplementEntry" />
           <EntitySet Name="WaterEntries" EntityType="DietJournal.Entities.WaterEntry" />
           <EntitySet Name="WeightEntries" EntityType="DietJournal.Entities.WeightEntry" />
+          <EntitySet Name="DietPlanEntryTypeValues" EntityType="DietJournal.Entities.DietPlanEntryTypeValue" />
+          <EntitySet Name="DietPlans" EntityType="DietJournal.Entities.DietPlan" />
+          <EntitySet Name="FoodEntryAdditionalValues" EntityType="DietJournal.Entities.FoodEntryAdditionalValue" />
+          <EntitySet Name="FoodFavorites" EntityType="DietJournal.Entities.FoodFavorite" />
+          <EntitySet Name="ProfileSettings" EntityType="DietJournal.Entities.ProfileSetting" />
+          <AssociationSet Name="FK_DietPlanEntryTypeValues_DietPlans" Association="DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans">
+            <End Role="DietPlan" EntitySet="DietPlans" />
+            <End Role="DietPlanEntryTypeValue" EntitySet="DietPlanEntryTypeValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodFavorites_DietPlans" Association="DietJournal.Entities.FK_FoodFavorites_DietPlans">
+            <End Role="DietPlan" EntitySet="DietPlans" />
+            <End Role="FoodFavorite" EntitySet="FoodFavorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileSettings_DietPlans" Association="DietJournal.Entities.FK_ProfileSettings_DietPlans">
+            <End Role="DietPlan" EntitySet="DietPlans" />
+            <End Role="ProfileSetting" EntitySet="ProfileSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues" Association="DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues">
+            <End Role="DietPlanEntryTypeValue" EntitySet="DietPlanEntryTypeValues" />
+            <End Role="FoodEntryAdditionalValue" EntitySet="FoodEntryAdditionalValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodEntryAdditionalValues_FoodEntries" Association="DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries">
+            <End Role="FoodEntry" EntitySet="FoodEntries" />
+            <End Role="FoodEntryAdditionalValue" EntitySet="FoodEntryAdditionalValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DietPlans_DietPlans" Association="DietJournal.Entities.FK_DietPlans_DietPlans">
+            <End Role="DietPlan" EntitySet="DietPlans" />
+            <End Role="DietPlan1" EntitySet="DietPlans" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BloodPressureEntry">
           <Key>
@@ -136,6 +327,7 @@
           <Property Name="Protein" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="EntryDate" Type="DateTime" Nullable="false" />
           <Property Name="SavedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="FoodEntryAdditionalValues" Relationship="DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries" FromRole="FoodEntry" ToRole="FoodEntryAdditionalValue" />
         </EntityType>
         <EntityType Name="SupplementEntry">
           <Key>
@@ -168,6 +360,151 @@
           <Property Name="EntryDate" Type="DateTime" Nullable="false" />
           <Property Name="SavedDate" Type="DateTime" Nullable="false" />
         </EntityType>
+        <EntityType Name="DietPlanEntryTypeValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="DietPlanId" Nullable="false" />
+          <Property Type="Int32" Name="EntryType" Nullable="false" />
+          <Property Type="String" Name="Label" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ValueType" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PossibleValues" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsRequired" Nullable="false" />
+          <NavigationProperty Name="DietPlan" Relationship="DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans" FromRole="DietPlanEntryTypeValue" ToRole="DietPlan" />
+          <NavigationProperty Name="FoodEntryAdditionalValues" Relationship="DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues" FromRole="DietPlanEntryTypeValue" ToRole="FoodEntryAdditionalValue" />
+        </EntityType>
+        <EntityType Name="DietPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ParentId" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <NavigationProperty Name="DietPlanEntryTypeValues" Relationship="DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans" FromRole="DietPlan" ToRole="DietPlanEntryTypeValue" />
+          <NavigationProperty Name="FoodFavorites" Relationship="DietJournal.Entities.FK_FoodFavorites_DietPlans" FromRole="DietPlan" ToRole="FoodFavorite" />
+          <NavigationProperty Name="ProfileSettings" Relationship="DietJournal.Entities.FK_ProfileSettings_DietPlans" FromRole="DietPlan" ToRole="ProfileSetting" />
+          <NavigationProperty Name="DietPlans" Relationship="DietJournal.Entities.FK_DietPlans_DietPlans" FromRole="DietPlan" ToRole="DietPlan1" />
+          <NavigationProperty Name="DietPlan1" Relationship="DietJournal.Entities.FK_DietPlans_DietPlans" FromRole="DietPlan1" ToRole="DietPlan" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+        </EntityType>
+        <EntityType Name="FoodEntryAdditionalValue">
+          <Key>
+            <PropertyRef Name="FoodEntryId" />
+            <PropertyRef Name="DietPlanEntryTypeValueId" />
+          </Key>
+          <Property Type="Int32" Name="FoodEntryId" Nullable="false" />
+          <Property Type="Int32" Name="DietPlanEntryTypeValueId" Nullable="false" />
+          <Property Type="String" Name="Value" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DietPlanEntryTypeValue" Relationship="DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues" FromRole="FoodEntryAdditionalValue" ToRole="DietPlanEntryTypeValue" />
+          <NavigationProperty Name="FoodEntry" Relationship="DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries" FromRole="FoodEntryAdditionalValue" ToRole="FoodEntry" />
+        </EntityType>
+        <EntityType Name="FoodFavorite">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="DietPlanId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Decimal" Name="Calories" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Carbs" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Fat" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Protein" Precision="18" Scale="0" />
+          <NavigationProperty Name="DietPlan" Relationship="DietJournal.Entities.FK_FoodFavorites_DietPlans" FromRole="FoodFavorite" ToRole="DietPlan" />
+        </EntityType>
+        <EntityType Name="ProfileSetting">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="DietPlanId" />
+          <Property Type="String" Name="FirstName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="BirthDay" />
+          <Property Type="Int32" Name="Gender" />
+          <Property Type="Boolean" Name="CaptureCalories" Nullable="false" />
+          <Property Type="Boolean" Name="CaptureFat" Nullable="false" />
+          <Property Type="Boolean" Name="CaptureCarbs" Nullable="false" />
+          <Property Type="Boolean" Name="CaptureProtein" Nullable="false" />
+          <Property Type="Int32" Name="WeightGoal" />
+          <NavigationProperty Name="DietPlan" Relationship="DietJournal.Entities.FK_ProfileSettings_DietPlans" FromRole="ProfileSetting" ToRole="DietPlan" />
+          <Property Type="Int32" Name="CaloriesGoal" />
+        </EntityType>
+        <Association Name="FK_DietPlanEntryTypeValues_DietPlans">
+          <End Type="DietJournal.Entities.DietPlan" Role="DietPlan" Multiplicity="1" />
+          <End Type="DietJournal.Entities.DietPlanEntryTypeValue" Role="DietPlanEntryTypeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DietPlanEntryTypeValue">
+              <PropertyRef Name="DietPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodFavorites_DietPlans">
+          <End Type="DietJournal.Entities.DietPlan" Role="DietPlan" Multiplicity="0..1" />
+          <End Type="DietJournal.Entities.FoodFavorite" Role="FoodFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FoodFavorite">
+              <PropertyRef Name="DietPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfileSettings_DietPlans">
+          <End Type="DietJournal.Entities.DietPlan" Role="DietPlan" Multiplicity="0..1" />
+          <End Type="DietJournal.Entities.ProfileSetting" Role="ProfileSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProfileSetting">
+              <PropertyRef Name="DietPlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues">
+          <End Type="DietJournal.Entities.DietPlanEntryTypeValue" Role="DietPlanEntryTypeValue" Multiplicity="1" />
+          <End Type="DietJournal.Entities.FoodEntryAdditionalValue" Role="FoodEntryAdditionalValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlanEntryTypeValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FoodEntryAdditionalValue">
+              <PropertyRef Name="DietPlanEntryTypeValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodEntryAdditionalValues_FoodEntries">
+          <End Type="DietJournal.Entities.FoodEntry" Role="FoodEntry" Multiplicity="1" />
+          <End Type="DietJournal.Entities.FoodEntryAdditionalValue" Role="FoodEntryAdditionalValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodEntry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FoodEntryAdditionalValue">
+              <PropertyRef Name="FoodEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DietPlans_DietPlans">
+          <End Type="DietJournal.Entities.DietPlan" Role="DietPlan" Multiplicity="0..1" />
+          <End Type="DietJournal.Entities.DietPlan" Role="DietPlan1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DietPlan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DietPlan1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -227,6 +564,72 @@
             <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
             <ScalarProperty Name="SavedDate" ColumnName="SavedDate" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DietPlanEntryTypeValues">
+            <EntityTypeMapping TypeName="DietJournal.Entities.DietPlanEntryTypeValue">
+              <MappingFragment StoreEntitySet="DietPlanEntryTypeValues">
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+                <ScalarProperty Name="PossibleValues" ColumnName="PossibleValues" />
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="EntryType" ColumnName="EntryType" />
+                <ScalarProperty Name="DietPlanId" ColumnName="DietPlanId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DietPlans">
+            <EntityTypeMapping TypeName="DietJournal.Entities.DietPlan">
+              <MappingFragment StoreEntitySet="DietPlans">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodEntryAdditionalValues">
+            <EntityTypeMapping TypeName="DietJournal.Entities.FoodEntryAdditionalValue">
+              <MappingFragment StoreEntitySet="FoodEntryAdditionalValues">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DietPlanEntryTypeValueId" ColumnName="DietPlanEntryTypeValueId" />
+                <ScalarProperty Name="FoodEntryId" ColumnName="FoodEntryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodFavorites">
+            <EntityTypeMapping TypeName="DietJournal.Entities.FoodFavorite">
+              <MappingFragment StoreEntitySet="FoodFavorites">
+                <ScalarProperty Name="Protein" ColumnName="Protein" />
+                <ScalarProperty Name="Fat" ColumnName="Fat" />
+                <ScalarProperty Name="Carbs" ColumnName="Carbs" />
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DietPlanId" ColumnName="DietPlanId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileSettings">
+            <EntityTypeMapping TypeName="DietJournal.Entities.ProfileSetting">
+              <MappingFragment StoreEntitySet="ProfileSettings">
+                <ScalarProperty Name="CaloriesGoal" ColumnName="CaloriesGoal" />
+                <ScalarProperty Name="WeightGoal" ColumnName="WeightGoal" />
+                <ScalarProperty Name="CaptureProtein" ColumnName="CaptureProtein" />
+                <ScalarProperty Name="CaptureCarbs" ColumnName="CaptureCarbs" />
+                <ScalarProperty Name="CaptureFat" ColumnName="CaptureFat" />
+                <ScalarProperty Name="CaptureCalories" ColumnName="CaptureCalories" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="DietPlanId" ColumnName="DietPlanId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -250,10 +653,50 @@
       <Diagram Name="DietJournal">
         <EntityTypeShape EntityType="DietJournal.Entities.BloodPressureEntry" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
         <EntityTypeShape EntityType="DietJournal.Entities.ExerciseEntry" Width="1.5" PointX="2.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
-        <EntityTypeShape EntityType="DietJournal.Entities.FoodEntry" Width="1.5" PointX="4.75" PointY="0.75" Height="3.1340950520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="DietJournal.Entities.FoodEntry" Width="2.5" PointX="4.75" PointY="0.75" Height="3.3263964843749996" IsExpanded="true" />
         <EntityTypeShape EntityType="DietJournal.Entities.SupplementEntry" Width="1.5" PointX="0.75" PointY="4.75" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="DietJournal.Entities.WaterEntry" Width="1.5" PointX="2.75" PointY="4.75" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="DietJournal.Entities.WeightEntry" Width="1.5" PointX="4.75" PointY="4.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="DietJournal.Entities.DietPlanEntryTypeValue" Width="1.5" PointX="10" PointY="1.375" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="DietJournal.Entities.DietPlan" Width="1.5" PointX="7.75" PointY="5" Height="2.5571907552083326" />
+        <EntityTypeShape EntityType="DietJournal.Entities.FoodEntryAdditionalValue" Width="2.125" PointX="3.25" PointY="7.875" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="DietJournal.Entities.FoodFavorite" Width="1.5" PointX="10" PointY="4.625" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="DietJournal.Entities.ProfileSetting" Width="1.5" PointX="10" PointY="8.375" Height="3.3263964843750031" />
+        <AssociationConnector Association="DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans" >
+          <ConnectorPoint PointX="8.5" PointY="5" />
+          <ConnectorPoint PointX="8.5" PointY="2.718493593749999" />
+          <ConnectorPoint PointX="10" PointY="2.718493593749999" />
+        </AssociationConnector>
+        <AssociationConnector Association="DietJournal.Entities.FK_FoodFavorites_DietPlans" >
+          <ConnectorPoint PointX="9.25" PointY="6.2833968098958337" />
+          <ConnectorPoint PointX="9.5416666666666661" PointY="6.2833968098958328" />
+          <ConnectorPoint PointX="9.7083333333333339" PointY="6.2833968098958337" />
+          <ConnectorPoint PointX="10" PointY="6.2833968098958337" />
+        </AssociationConnector>
+        <AssociationConnector Association="DietJournal.Entities.FK_ProfileSettings_DietPlans" >
+          <ConnectorPoint PointX="8.5" PointY="7.9417936197916656" />
+          <ConnectorPoint PointX="8.5" PointY="10.445784442382815" />
+          <ConnectorPoint PointX="10" PointY="10.445784442382815" />
+        </AssociationConnector>
+        <AssociationConnector Association="DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues" >
+          <ConnectorPoint PointX="10" PointY="4.1244921875" />
+          <ConnectorPoint PointX="9.625" PointY="4.4994921875" />
+          <ConnectorPoint PointX="9.625" PointY="9.190172400390626" />
+          <ConnectorPoint PointX="8.5833333333333339" PointY="9.190172400390626" />
+          <ConnectorPoint PointX="8.4166666666666661" PointY="9.190172400390626" />
+          <ConnectorPoint PointX="5.375" PointY="9.190172400390626" />
+        </AssociationConnector>
+        <AssociationConnector Association="DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries" >
+          <ConnectorPoint PointX="6.78125" PointY="4.076396484375" />
+          <ConnectorPoint PointX="6.78125" PointY="8.3699419114583336" />
+          <ConnectorPoint PointX="5.375" PointY="8.3699419114583336" />
+        </AssociationConnector>
+        <AssociationConnector Association="DietJournal.Entities.FK_DietPlans_DietPlans" >
+          <ConnectorPoint PointX="7.75" PointY="6.0199147636217951" />
+          <ConnectorPoint PointX="7.5" PointY="6.0199147636217951" />
+          <ConnectorPoint PointX="7.5" PointY="6.94335419170673" />
+          <ConnectorPoint PointX="7.75" PointY="6.94335419170673" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

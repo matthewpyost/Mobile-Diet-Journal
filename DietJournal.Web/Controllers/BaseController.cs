@@ -63,5 +63,29 @@ namespace DietJournal.Web.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
+
+        protected List<DietPlan> DietPlans
+        {
+            get
+            {
+                var key = "DietPlans";
+                var plans = HttpContext.Cache[key] as List<DietPlan>;
+                if (plans == null)
+                {
+                    using (var entities = new DietJournalEntities())
+                    {
+                        plans = (from d in entities.DietPlans
+                                where d.ParentId == null
+                                select d).ToList();
+
+                        plans.ForEach(p => p.DietPlans.ToList());
+                    }
+
+                    HttpContext.Cache.Insert(key, plans);
+                }
+
+                return plans;
+            }
+        }
     }
 }

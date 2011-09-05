@@ -17,3 +17,7 @@ legend
 {
     font-style:italic;
 }
+.validation-summary-errors, .field-validation-error
+{
+    color: Red;
+}

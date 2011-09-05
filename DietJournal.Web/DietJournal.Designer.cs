@@ -16,6 +16,16 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
+#region EDM Relationship Metadata
+
+[assembly: EdmRelationshipAttribute("DietJournal.Entities", "FK_DietPlanEntryTypeValues_DietPlans", "DietPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DietJournal.Web.DietPlan), "DietPlanEntryTypeValue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DietJournal.Web.DietPlanEntryTypeValue), true)]
+[assembly: EdmRelationshipAttribute("DietJournal.Entities", "FK_FoodFavorites_DietPlans", "DietPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DietJournal.Web.DietPlan), "FoodFavorite", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DietJournal.Web.FoodFavorite), true)]
+[assembly: EdmRelationshipAttribute("DietJournal.Entities", "FK_ProfileSettings_DietPlans", "DietPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DietJournal.Web.DietPlan), "ProfileSetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DietJournal.Web.ProfileSetting), true)]
+[assembly: EdmRelationshipAttribute("DietJournal.Entities", "FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "DietPlanEntryTypeValue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DietJournal.Web.DietPlanEntryTypeValue), "FoodEntryAdditionalValue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DietJournal.Web.FoodEntryAdditionalValue), true)]
+[assembly: EdmRelationshipAttribute("DietJournal.Entities", "FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DietJournal.Web.FoodEntry), "FoodEntryAdditionalValue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DietJournal.Web.FoodEntryAdditionalValue), true)]
+[assembly: EdmRelationshipAttribute("DietJournal.Entities", "FK_DietPlans_DietPlans", "DietPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DietJournal.Web.DietPlan), "DietPlan1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DietJournal.Web.DietPlan), true)]
+
+#endregion
 
 namespace DietJournal.Web
 {
@@ -160,6 +170,86 @@ namespace DietJournal.Web
             }
         }
         private ObjectSet<WeightEntry> _WeightEntries;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DietPlanEntryTypeValue> DietPlanEntryTypeValues
+        {
+            get
+            {
+                if ((_DietPlanEntryTypeValues == null))
+                {
+                    _DietPlanEntryTypeValues = base.CreateObjectSet<DietPlanEntryTypeValue>("DietPlanEntryTypeValues");
+                }
+                return _DietPlanEntryTypeValues;
+            }
+        }
+        private ObjectSet<DietPlanEntryTypeValue> _DietPlanEntryTypeValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DietPlan> DietPlans
+        {
+            get
+            {
+                if ((_DietPlans == null))
+                {
+                    _DietPlans = base.CreateObjectSet<DietPlan>("DietPlans");
+                }
+                return _DietPlans;
+            }
+        }
+        private ObjectSet<DietPlan> _DietPlans;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FoodEntryAdditionalValue> FoodEntryAdditionalValues
+        {
+            get
+            {
+                if ((_FoodEntryAdditionalValues == null))
+                {
+                    _FoodEntryAdditionalValues = base.CreateObjectSet<FoodEntryAdditionalValue>("FoodEntryAdditionalValues");
+                }
+                return _FoodEntryAdditionalValues;
+            }
+        }
+        private ObjectSet<FoodEntryAdditionalValue> _FoodEntryAdditionalValues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FoodFavorite> FoodFavorites
+        {
+            get
+            {
+                if ((_FoodFavorites == null))
+                {
+                    _FoodFavorites = base.CreateObjectSet<FoodFavorite>("FoodFavorites");
+                }
+                return _FoodFavorites;
+            }
+        }
+        private ObjectSet<FoodFavorite> _FoodFavorites;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProfileSetting> ProfileSettings
+        {
+            get
+            {
+                if ((_ProfileSettings == null))
+                {
+                    _ProfileSettings = base.CreateObjectSet<ProfileSetting>("ProfileSettings");
+                }
+                return _ProfileSettings;
+            }
+        }
+        private ObjectSet<ProfileSetting> _ProfileSettings;
 
         #endregion
         #region AddTo Methods
@@ -210,6 +300,46 @@ namespace DietJournal.Web
         public void AddToWeightEntries(WeightEntry weightEntry)
         {
             base.AddObject("WeightEntries", weightEntry);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DietPlanEntryTypeValues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDietPlanEntryTypeValues(DietPlanEntryTypeValue dietPlanEntryTypeValue)
+        {
+            base.AddObject("DietPlanEntryTypeValues", dietPlanEntryTypeValue);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DietPlans EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDietPlans(DietPlan dietPlan)
+        {
+            base.AddObject("DietPlans", dietPlan);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FoodEntryAdditionalValues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFoodEntryAdditionalValues(FoodEntryAdditionalValue foodEntryAdditionalValue)
+        {
+            base.AddObject("FoodEntryAdditionalValues", foodEntryAdditionalValue);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FoodFavorites EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFoodFavorites(FoodFavorite foodFavorite)
+        {
+            base.AddObject("FoodFavorites", foodFavorite);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProfileSettings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProfileSettings(ProfileSetting profileSetting)
+        {
+            base.AddObject("ProfileSettings", profileSetting);
         }
 
         #endregion
@@ -429,6 +559,560 @@ namespace DietJournal.Web
 
         #endregion
     
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DietJournal.Entities", Name="DietPlan")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DietPlan : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DietPlan object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="isActive">Initial value of the IsActive property.</param>
+        public static DietPlan CreateDietPlan(global::System.Int32 id, global::System.String name, global::System.Boolean isActive)
+        {
+            DietPlan dietPlan = new DietPlan();
+            dietPlan.Id = id;
+            dietPlan.Name = name;
+            dietPlan.IsActive = isActive;
+            return dietPlan;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ParentId
+        {
+            get
+            {
+                return _ParentId;
+            }
+            set
+            {
+                OnParentIdChanging(value);
+                ReportPropertyChanging("ParentId");
+                _ParentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParentId");
+                OnParentIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ParentId;
+        partial void OnParentIdChanging(Nullable<global::System.Int32> value);
+        partial void OnParentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private global::System.Boolean _IsActive;
+        partial void OnIsActiveChanging(global::System.Boolean value);
+        partial void OnIsActiveChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_DietPlanEntryTypeValues_DietPlans", "DietPlanEntryTypeValue")]
+        public EntityCollection<DietPlanEntryTypeValue> DietPlanEntryTypeValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DietPlanEntryTypeValue>("DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans", "DietPlanEntryTypeValue");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DietPlanEntryTypeValue>("DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans", "DietPlanEntryTypeValue", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_FoodFavorites_DietPlans", "FoodFavorite")]
+        public EntityCollection<FoodFavorite> FoodFavorites
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FoodFavorite>("DietJournal.Entities.FK_FoodFavorites_DietPlans", "FoodFavorite");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FoodFavorite>("DietJournal.Entities.FK_FoodFavorites_DietPlans", "FoodFavorite", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_ProfileSettings_DietPlans", "ProfileSetting")]
+        public EntityCollection<ProfileSetting> ProfileSettings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfileSetting>("DietJournal.Entities.FK_ProfileSettings_DietPlans", "ProfileSetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfileSetting>("DietJournal.Entities.FK_ProfileSettings_DietPlans", "ProfileSetting", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_DietPlans_DietPlans", "DietPlan1")]
+        public EntityCollection<DietPlan> DietPlans
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DietPlan>("DietJournal.Entities.FK_DietPlans_DietPlans", "DietPlan1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DietPlan>("DietJournal.Entities.FK_DietPlans_DietPlans", "DietPlan1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_DietPlans_DietPlans", "DietPlan")]
+        private DietPlan DietPlan1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_DietPlans_DietPlans", "DietPlan").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_DietPlans_DietPlans", "DietPlan").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        private EntityReference<DietPlan> DietPlan1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_DietPlans_DietPlans", "DietPlan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DietPlan>("DietJournal.Entities.FK_DietPlans_DietPlans", "DietPlan", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DietJournal.Entities", Name="DietPlanEntryTypeValue")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DietPlanEntryTypeValue : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DietPlanEntryTypeValue object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="dietPlanId">Initial value of the DietPlanId property.</param>
+        /// <param name="entryType">Initial value of the EntryType property.</param>
+        /// <param name="valueType">Initial value of the ValueType property.</param>
+        /// <param name="isRequired">Initial value of the IsRequired property.</param>
+        public static DietPlanEntryTypeValue CreateDietPlanEntryTypeValue(global::System.Int32 id, global::System.Int32 dietPlanId, global::System.Int32 entryType, global::System.String valueType, global::System.Boolean isRequired)
+        {
+            DietPlanEntryTypeValue dietPlanEntryTypeValue = new DietPlanEntryTypeValue();
+            dietPlanEntryTypeValue.Id = id;
+            dietPlanEntryTypeValue.DietPlanId = dietPlanId;
+            dietPlanEntryTypeValue.EntryType = entryType;
+            dietPlanEntryTypeValue.ValueType = valueType;
+            dietPlanEntryTypeValue.IsRequired = isRequired;
+            return dietPlanEntryTypeValue;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DietPlanId
+        {
+            get
+            {
+                return _DietPlanId;
+            }
+            set
+            {
+                OnDietPlanIdChanging(value);
+                ReportPropertyChanging("DietPlanId");
+                _DietPlanId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DietPlanId");
+                OnDietPlanIdChanged();
+            }
+        }
+        private global::System.Int32 _DietPlanId;
+        partial void OnDietPlanIdChanging(global::System.Int32 value);
+        partial void OnDietPlanIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 EntryType
+        {
+            get
+            {
+                return _EntryType;
+            }
+            set
+            {
+                OnEntryTypeChanging(value);
+                ReportPropertyChanging("EntryType");
+                _EntryType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EntryType");
+                OnEntryTypeChanged();
+            }
+        }
+        private global::System.Int32 _EntryType;
+        partial void OnEntryTypeChanging(global::System.Int32 value);
+        partial void OnEntryTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Label
+        {
+            get
+            {
+                return _Label;
+            }
+            set
+            {
+                OnLabelChanging(value);
+                ReportPropertyChanging("Label");
+                _Label = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Label");
+                OnLabelChanged();
+            }
+        }
+        private global::System.String _Label;
+        partial void OnLabelChanging(global::System.String value);
+        partial void OnLabelChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ValueType
+        {
+            get
+            {
+                return _ValueType;
+            }
+            set
+            {
+                OnValueTypeChanging(value);
+                ReportPropertyChanging("ValueType");
+                _ValueType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ValueType");
+                OnValueTypeChanged();
+            }
+        }
+        private global::System.String _ValueType;
+        partial void OnValueTypeChanging(global::System.String value);
+        partial void OnValueTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PossibleValues
+        {
+            get
+            {
+                return _PossibleValues;
+            }
+            set
+            {
+                OnPossibleValuesChanging(value);
+                ReportPropertyChanging("PossibleValues");
+                _PossibleValues = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PossibleValues");
+                OnPossibleValuesChanged();
+            }
+        }
+        private global::System.String _PossibleValues;
+        partial void OnPossibleValuesChanging(global::System.String value);
+        partial void OnPossibleValuesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsRequired
+        {
+            get
+            {
+                return _IsRequired;
+            }
+            set
+            {
+                OnIsRequiredChanging(value);
+                ReportPropertyChanging("IsRequired");
+                _IsRequired = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsRequired");
+                OnIsRequiredChanged();
+            }
+        }
+        private global::System.Boolean _IsRequired;
+        partial void OnIsRequiredChanging(global::System.Boolean value);
+        partial void OnIsRequiredChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_DietPlanEntryTypeValues_DietPlans", "DietPlan")]
+        public DietPlan DietPlan
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans", "DietPlan").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans", "DietPlan").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DietPlan> DietPlanReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans", "DietPlan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DietPlan>("DietJournal.Entities.FK_DietPlanEntryTypeValues_DietPlans", "DietPlan", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "FoodEntryAdditionalValue")]
+        public EntityCollection<FoodEntryAdditionalValue> FoodEntryAdditionalValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FoodEntryAdditionalValue>("DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "FoodEntryAdditionalValue");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FoodEntryAdditionalValue>("DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "FoodEntryAdditionalValue", value);
+                }
+            }
+        }
+
+        #endregion
     }
     
     /// <summary>
@@ -943,6 +1627,876 @@ namespace DietJournal.Web
 
         #endregion
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntryAdditionalValue")]
+        public EntityCollection<FoodEntryAdditionalValue> FoodEntryAdditionalValues
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FoodEntryAdditionalValue>("DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntryAdditionalValue");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FoodEntryAdditionalValue>("DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntryAdditionalValue", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DietJournal.Entities", Name="FoodEntryAdditionalValue")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FoodEntryAdditionalValue : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new FoodEntryAdditionalValue object.
+        /// </summary>
+        /// <param name="foodEntryId">Initial value of the FoodEntryId property.</param>
+        /// <param name="dietPlanEntryTypeValueId">Initial value of the DietPlanEntryTypeValueId property.</param>
+        public static FoodEntryAdditionalValue CreateFoodEntryAdditionalValue(global::System.Int32 foodEntryId, global::System.Int32 dietPlanEntryTypeValueId)
+        {
+            FoodEntryAdditionalValue foodEntryAdditionalValue = new FoodEntryAdditionalValue();
+            foodEntryAdditionalValue.FoodEntryId = foodEntryId;
+            foodEntryAdditionalValue.DietPlanEntryTypeValueId = dietPlanEntryTypeValueId;
+            return foodEntryAdditionalValue;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 FoodEntryId
+        {
+            get
+            {
+                return _FoodEntryId;
+            }
+            set
+            {
+                if (_FoodEntryId != value)
+                {
+                    OnFoodEntryIdChanging(value);
+                    ReportPropertyChanging("FoodEntryId");
+                    _FoodEntryId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("FoodEntryId");
+                    OnFoodEntryIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _FoodEntryId;
+        partial void OnFoodEntryIdChanging(global::System.Int32 value);
+        partial void OnFoodEntryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DietPlanEntryTypeValueId
+        {
+            get
+            {
+                return _DietPlanEntryTypeValueId;
+            }
+            set
+            {
+                if (_DietPlanEntryTypeValueId != value)
+                {
+                    OnDietPlanEntryTypeValueIdChanging(value);
+                    ReportPropertyChanging("DietPlanEntryTypeValueId");
+                    _DietPlanEntryTypeValueId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("DietPlanEntryTypeValueId");
+                    OnDietPlanEntryTypeValueIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _DietPlanEntryTypeValueId;
+        partial void OnDietPlanEntryTypeValueIdChanging(global::System.Int32 value);
+        partial void OnDietPlanEntryTypeValueIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Value
+        {
+            get
+            {
+                return _Value;
+            }
+            set
+            {
+                OnValueChanging(value);
+                ReportPropertyChanging("Value");
+                _Value = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Value");
+                OnValueChanged();
+            }
+        }
+        private global::System.String _Value;
+        partial void OnValueChanging(global::System.String value);
+        partial void OnValueChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "DietPlanEntryTypeValue")]
+        public DietPlanEntryTypeValue DietPlanEntryTypeValue
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlanEntryTypeValue>("DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "DietPlanEntryTypeValue").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlanEntryTypeValue>("DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "DietPlanEntryTypeValue").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DietPlanEntryTypeValue> DietPlanEntryTypeValueReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlanEntryTypeValue>("DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "DietPlanEntryTypeValue");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DietPlanEntryTypeValue>("DietJournal.Entities.FK_FoodEntryAdditionalValues_DietPlanEntryTypeValues", "DietPlanEntryTypeValue", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntry")]
+        public FoodEntry FoodEntry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FoodEntry>("DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FoodEntry>("DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FoodEntry> FoodEntryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FoodEntry>("DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FoodEntry>("DietJournal.Entities.FK_FoodEntryAdditionalValues_FoodEntries", "FoodEntry", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DietJournal.Entities", Name="FoodFavorite")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FoodFavorite : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new FoodFavorite object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="title">Initial value of the Title property.</param>
+        public static FoodFavorite CreateFoodFavorite(global::System.Int32 id, global::System.String title)
+        {
+            FoodFavorite foodFavorite = new FoodFavorite();
+            foodFavorite.Id = id;
+            foodFavorite.Title = title;
+            return foodFavorite;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DietPlanId
+        {
+            get
+            {
+                return _DietPlanId;
+            }
+            set
+            {
+                OnDietPlanIdChanging(value);
+                ReportPropertyChanging("DietPlanId");
+                _DietPlanId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DietPlanId");
+                OnDietPlanIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DietPlanId;
+        partial void OnDietPlanIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDietPlanIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _UserId;
+        partial void OnUserIdChanging(Nullable<global::System.Guid> value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Calories
+        {
+            get
+            {
+                return _Calories;
+            }
+            set
+            {
+                OnCaloriesChanging(value);
+                ReportPropertyChanging("Calories");
+                _Calories = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Calories");
+                OnCaloriesChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Calories;
+        partial void OnCaloriesChanging(Nullable<global::System.Decimal> value);
+        partial void OnCaloriesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Carbs
+        {
+            get
+            {
+                return _Carbs;
+            }
+            set
+            {
+                OnCarbsChanging(value);
+                ReportPropertyChanging("Carbs");
+                _Carbs = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Carbs");
+                OnCarbsChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Carbs;
+        partial void OnCarbsChanging(Nullable<global::System.Decimal> value);
+        partial void OnCarbsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Fat
+        {
+            get
+            {
+                return _Fat;
+            }
+            set
+            {
+                OnFatChanging(value);
+                ReportPropertyChanging("Fat");
+                _Fat = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Fat");
+                OnFatChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Fat;
+        partial void OnFatChanging(Nullable<global::System.Decimal> value);
+        partial void OnFatChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Protein
+        {
+            get
+            {
+                return _Protein;
+            }
+            set
+            {
+                OnProteinChanging(value);
+                ReportPropertyChanging("Protein");
+                _Protein = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Protein");
+                OnProteinChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Protein;
+        partial void OnProteinChanging(Nullable<global::System.Decimal> value);
+        partial void OnProteinChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_FoodFavorites_DietPlans", "DietPlan")]
+        public DietPlan DietPlan
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_FoodFavorites_DietPlans", "DietPlan").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_FoodFavorites_DietPlans", "DietPlan").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DietPlan> DietPlanReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_FoodFavorites_DietPlans", "DietPlan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DietPlan>("DietJournal.Entities.FK_FoodFavorites_DietPlans", "DietPlan", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DietJournal.Entities", Name="ProfileSetting")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ProfileSetting : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ProfileSetting object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="captureCalories">Initial value of the CaptureCalories property.</param>
+        /// <param name="captureFat">Initial value of the CaptureFat property.</param>
+        /// <param name="captureCarbs">Initial value of the CaptureCarbs property.</param>
+        /// <param name="captureProtein">Initial value of the CaptureProtein property.</param>
+        public static ProfileSetting CreateProfileSetting(global::System.Guid userId, global::System.Boolean captureCalories, global::System.Boolean captureFat, global::System.Boolean captureCarbs, global::System.Boolean captureProtein)
+        {
+            ProfileSetting profileSetting = new ProfileSetting();
+            profileSetting.UserId = userId;
+            profileSetting.CaptureCalories = captureCalories;
+            profileSetting.CaptureFat = captureFat;
+            profileSetting.CaptureCarbs = captureCarbs;
+            profileSetting.CaptureProtein = captureProtein;
+            return profileSetting;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _UserId;
+        partial void OnUserIdChanging(global::System.Guid value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DietPlanId
+        {
+            get
+            {
+                return _DietPlanId;
+            }
+            set
+            {
+                OnDietPlanIdChanging(value);
+                ReportPropertyChanging("DietPlanId");
+                _DietPlanId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DietPlanId");
+                OnDietPlanIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DietPlanId;
+        partial void OnDietPlanIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDietPlanIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FirstName
+        {
+            get
+            {
+                return _FirstName;
+            }
+            set
+            {
+                OnFirstNameChanging(value);
+                ReportPropertyChanging("FirstName");
+                _FirstName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FirstName");
+                OnFirstNameChanged();
+            }
+        }
+        private global::System.String _FirstName;
+        partial void OnFirstNameChanging(global::System.String value);
+        partial void OnFirstNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LastName
+        {
+            get
+            {
+                return _LastName;
+            }
+            set
+            {
+                OnLastNameChanging(value);
+                ReportPropertyChanging("LastName");
+                _LastName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LastName");
+                OnLastNameChanged();
+            }
+        }
+        private global::System.String _LastName;
+        partial void OnLastNameChanging(global::System.String value);
+        partial void OnLastNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> BirthDay
+        {
+            get
+            {
+                return _BirthDay;
+            }
+            set
+            {
+                OnBirthDayChanging(value);
+                ReportPropertyChanging("BirthDay");
+                _BirthDay = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BirthDay");
+                OnBirthDayChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _BirthDay;
+        partial void OnBirthDayChanging(Nullable<global::System.DateTime> value);
+        partial void OnBirthDayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Gender
+        {
+            get
+            {
+                return _Gender;
+            }
+            set
+            {
+                OnGenderChanging(value);
+                ReportPropertyChanging("Gender");
+                _Gender = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Gender");
+                OnGenderChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Gender;
+        partial void OnGenderChanging(Nullable<global::System.Int32> value);
+        partial void OnGenderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean CaptureCalories
+        {
+            get
+            {
+                return _CaptureCalories;
+            }
+            set
+            {
+                OnCaptureCaloriesChanging(value);
+                ReportPropertyChanging("CaptureCalories");
+                _CaptureCalories = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CaptureCalories");
+                OnCaptureCaloriesChanged();
+            }
+        }
+        private global::System.Boolean _CaptureCalories;
+        partial void OnCaptureCaloriesChanging(global::System.Boolean value);
+        partial void OnCaptureCaloriesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean CaptureFat
+        {
+            get
+            {
+                return _CaptureFat;
+            }
+            set
+            {
+                OnCaptureFatChanging(value);
+                ReportPropertyChanging("CaptureFat");
+                _CaptureFat = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CaptureFat");
+                OnCaptureFatChanged();
+            }
+        }
+        private global::System.Boolean _CaptureFat;
+        partial void OnCaptureFatChanging(global::System.Boolean value);
+        partial void OnCaptureFatChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean CaptureCarbs
+        {
+            get
+            {
+                return _CaptureCarbs;
+            }
+            set
+            {
+                OnCaptureCarbsChanging(value);
+                ReportPropertyChanging("CaptureCarbs");
+                _CaptureCarbs = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CaptureCarbs");
+                OnCaptureCarbsChanged();
+            }
+        }
+        private global::System.Boolean _CaptureCarbs;
+        partial void OnCaptureCarbsChanging(global::System.Boolean value);
+        partial void OnCaptureCarbsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean CaptureProtein
+        {
+            get
+            {
+                return _CaptureProtein;
+            }
+            set
+            {
+                OnCaptureProteinChanging(value);
+                ReportPropertyChanging("CaptureProtein");
+                _CaptureProtein = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CaptureProtein");
+                OnCaptureProteinChanged();
+            }
+        }
+        private global::System.Boolean _CaptureProtein;
+        partial void OnCaptureProteinChanging(global::System.Boolean value);
+        partial void OnCaptureProteinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> WeightGoal
+        {
+            get
+            {
+                return _WeightGoal;
+            }
+            set
+            {
+                OnWeightGoalChanging(value);
+                ReportPropertyChanging("WeightGoal");
+                _WeightGoal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WeightGoal");
+                OnWeightGoalChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _WeightGoal;
+        partial void OnWeightGoalChanging(Nullable<global::System.Int32> value);
+        partial void OnWeightGoalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CaloriesGoal
+        {
+            get
+            {
+                return _CaloriesGoal;
+            }
+            set
+            {
+                OnCaloriesGoalChanging(value);
+                ReportPropertyChanging("CaloriesGoal");
+                _CaloriesGoal = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CaloriesGoal");
+                OnCaloriesGoalChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CaloriesGoal;
+        partial void OnCaloriesGoalChanging(Nullable<global::System.Int32> value);
+        partial void OnCaloriesGoalChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DietJournal.Entities", "FK_ProfileSettings_DietPlans", "DietPlan")]
+        public DietPlan DietPlan
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_ProfileSettings_DietPlans", "DietPlan").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_ProfileSettings_DietPlans", "DietPlan").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DietPlan> DietPlanReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DietPlan>("DietJournal.Entities.FK_ProfileSettings_DietPlans", "DietPlan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DietPlan>("DietJournal.Entities.FK_ProfileSettings_DietPlans", "DietPlan", value);
+                }
+            }
+        }
+
+        #endregion
     }
     
     /// <summary>

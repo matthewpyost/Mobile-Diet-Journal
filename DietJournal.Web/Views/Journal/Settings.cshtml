@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Journal/_Layout.cshtml";
+}
+
+@section LeftNav
+{
+<a href="@Url.Action("ChangePassword","Account")" data-role="button" data-icon="refresh" data-transition="pop" data-rel="dialog">Password</a> 
+}
+
+@{Html.RenderAction("ProfileSettings", "Account");}
+
+

@@ -9,8 +9,11 @@ using DietJournal.Web.Models;
 
 namespace DietJournal.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
+
+        private const int SelectDietPlanValue = 0;
+        private const int NoDietPlanValue = 9999;
 
         //
         // GET: /Account/LogOn
@@ -66,7 +69,12 @@ namespace DietJournal.Web.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            var model = new RegisterModel
+            {
+                AvailableDietPlans = GetDietPlanSelectItems()
+            };
+
+            return View(model);
         }
 
         //
@@ -79,11 +87,23 @@ namespace DietJournal.Web.Controllers
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.Email, model.Password, model.Email, null, null, true, null, out createStatus);
+                var membershipUser = Membership.CreateUser(model.Email, model.Password, model.Email, null, null, true, null, out createStatus);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, false /* createPersistentCookie */);
+
+                    using (var entities = new DietJournalEntities())
+                    {
+                        var settings = entities.ProfileSettings.CreateObject();
+                        settings.UserId = (Guid)membershipUser.ProviderUserKey;
+                        if (model.DietPlanId != NoDietPlanValue && model.DietPlanId != SelectDietPlanValue)
+                            settings.DietPlanId = model.DietPlanId;
+                        entities.ProfileSettings.AddObject(settings);
+
+                        entities.SaveChanges();
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -91,6 +111,8 @@ namespace DietJournal.Web.Controllers
                     ModelState.AddModelError("", ErrorCodeToString(createStatus));
                 }
             }
+
+            model.AvailableDietPlans = GetDietPlanSelectItems();
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -112,34 +134,44 @@ namespace DietJournal.Web.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
+            var errorMessage = string.Empty;
+            var isValid = false;
+
             if (ModelState.IsValid)
             {
-
-                // ChangePassword will throw an exception rather
-                // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
                 try
                 {
                     MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                    isValid = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
                 }
                 catch (Exception)
                 {
-                    changePasswordSucceeded = false;
+                    isValid = false;
                 }
 
-                if (changePasswordSucceeded)
+                if (isValid)
                 {
-                    return RedirectToAction("ChangePasswordSuccess");
+                    return RedirectToAction("Settings", "Journal");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    errorMessage = "The current password is incorrect or the new password is invalid.";
+                    //ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
                 }
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return Json(new { IsValid = isValid, ErrorMessage = errorMessage });
+        }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            return View();
         }
 
         //
@@ -150,9 +182,67 @@ namespace DietJournal.Web.Controllers
             return View();
         }
 
-        public ActionResult Settings()
+        public PartialViewResult ProfileSettings()
         {
-            return View();
+            var model = new ProfileSettingsModel
+            {
+                AvailableDietPlans = GetDietPlanSelectItems()
+            };
+
+            var membership = Membership.GetUser(HttpContext.User.Identity.Name);
+
+            using (var context = new DietJournalEntities())
+            {
+                var result = context.ProfileSettings.FirstOrDefault(s => s.UserId == (Guid)membership.ProviderUserKey);
+                if (result != null)
+                {
+                    model.FirstName = result.FirstName;
+                    model.LastName = result.LastName;
+                    model.DietPlanId = result.DietPlanId.HasValue ? result.DietPlanId.Value : NoDietPlanValue;
+                    model.Birthday = result.BirthDay.HasValue ? result.BirthDay.Value.ToShortDateString() : string.Empty;
+                    model.WeightGoal = result.WeightGoal.HasValue ? result.WeightGoal.Value : 0;
+                    model.Gender = result.Gender.HasValue ? result.Gender.Value : 0;
+                    model.CaptureProtein = result.CaptureProtein;
+                    model.CaptureFat = result.CaptureFat;
+                    model.CaptureCarbs = result.CaptureCarbs;
+                    model.CaptureCalories = result.CaptureCalories;
+                    model.CaloriesGoal = result.CaloriesGoal.HasValue ? result.CaloriesGoal.Value : 0;
+                }
+            }
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public ActionResult ProfileSettings(ProfileSettingsModel model)
+        {
+            var membership = Membership.GetUser(HttpContext.User.Identity.Name);
+
+            using (var context = new DietJournalEntities())
+            {
+                var result = context.ProfileSettings.FirstOrDefault(s => s.UserId == (Guid)membership.ProviderUserKey);
+                if (result != null)
+                {
+                    result.FirstName = model.FirstName.Trim();
+                    result.LastName = model.LastName.Trim();
+                    if (!String.IsNullOrEmpty(model.Birthday))
+                        result.BirthDay = DateTime.Parse(model.Birthday);
+                    else
+                        result.BirthDay = null;
+                    result.Gender = model.Gender;
+                    result.CaloriesGoal = model.CaloriesGoal;
+                    result.CaptureCalories = model.CaptureCalories;
+                    result.CaptureCarbs = model.CaptureCarbs;
+                    result.CaptureFat = model.CaptureFat;
+                    result.CaptureProtein = model.CaptureProtein;
+                    result.DietPlanId = model.DietPlanId;
+                    result.WeightGoal = model.WeightGoal;
+
+                    context.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Settings", "Journal");
         }
 
         #region Status Codes
@@ -194,5 +284,37 @@ namespace DietJournal.Web.Controllers
             }
         }
         #endregion
+
+        private IEnumerable<SelectListItem> GetDietPlanSelectItems()
+        {
+            var availablePlans = new List<SelectListItem>();
+            foreach (var dietPlan in DietPlans)
+            {
+                if (dietPlan.DietPlans != null)
+                {
+                    foreach (var childPlan in dietPlan.DietPlans)
+                    {
+                        availablePlans.Add(new SelectListItem
+                        {
+                            Text = String.Format("{0}: {1}", dietPlan.Name, childPlan.Name),
+                            Value = childPlan.Id.ToString()
+                        });
+                    }
+                }
+                else
+                {
+                    availablePlans.Add(new SelectListItem
+                    {
+                        Text = dietPlan.Name,
+                        Value = dietPlan.Id.ToString()
+                    });
+                }
+            }
+
+            availablePlans.Insert(0, new GroupedSelectListItem { Value = SelectDietPlanValue.ToString(), Text = "--Select a diet plan--" });
+            availablePlans.Add(new GroupedSelectListItem { Value = NoDietPlanValue.ToString(), Text = "No Diet Plan" });
+
+            return availablePlans;
+        }
     }
 }

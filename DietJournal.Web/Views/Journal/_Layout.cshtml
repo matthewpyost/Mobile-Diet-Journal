@@ -15,6 +15,7 @@
         <a href="#" data-rel="back" data-icon="back">Back</a>
             }
         }
+        @RenderSection("LeftNav", false)
         <h2>@ViewBag.Title</h2>
         <a href="@Url.Action("LogOff", "Account")" data-icon="delete" class="ui-btn-right" data-ajax="false">Logout</a>
     </div>
@@ -24,10 +25,11 @@
 	<div data-id="myfooter" data-role="footer" data-position="fixed" class="footer">
 	    <div data-role="navbar">
 		    <ul>
-			    <li><a href="#" class="ui-btn-active" data-icon="grid">Entries</a></li>
-			    <li><a href="#" data-icon="star">Favorites</a></li>
-                <li><a href="#" data-icon="gear">Settings</a></li>
+			    <li><a href="@Url.Content("~/Journal/Index")" data-icon="grid" data-transition="fade" class="@(ViewBag.CurrentTab == null ? "ui-btn-active" : "")">Entries</a></li>
+			    <li><a href="#" data-icon="star" data-transition="fade" class="@(ViewBag.CurrentTab == "Favorites" ? "ui-btn-active" : "")">Favorites</a></li>
+                <li><a href="@Url.Content("~/Journal/Settings")" data-icon="gear" data-transition="fade" class="@(ViewBag.CurrentTab == "Settings" ? "ui-btn-active" : "")">Settings</a></li>
 		    </ul>
 	    </div>
 	</div>
 </div>
+ ==

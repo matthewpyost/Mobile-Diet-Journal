@@ -59,5 +59,56 @@ namespace DietJournal.Web.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Diet plan: ")]
+        public int DietPlanId { get; set; }
+
+        public IEnumerable<SelectListItem> AvailableDietPlans { get; set; }
+    }
+
+    public class ForgotPasswordModel
+    {
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email address")]
+        public string Email { get; set; }
+    }
+
+    public class ProfileSettingsModel
+    {
+        [Display(Name = "Diet plan: ")]
+        public int DietPlanId { get; set; }
+
+        [Display(Name = "First name: ")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last name: ")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Birthday: ")]
+        public string Birthday { get; set; }
+
+        [Display(Name = "Gender: ")]
+        public int Gender { get; set; }
+
+        [Display(Name = "Capture calories")]
+        public bool CaptureCalories { get; set; }
+
+        [Display(Name = "Capture fat")]
+        public bool CaptureFat { get; set; }
+
+        [Display(Name = "Capture carbs")]
+        public bool CaptureCarbs { get; set; }
+
+        [Display(Name = "Capture protein")]
+        public bool CaptureProtein { get; set; }
+
+        [Display(Name = "Weight Goal:")]
+        public int WeightGoal { get; set; }
+
+        [Display(Name = "Calories Goal:")]
+        public int CaloriesGoal { get; set; }
+
+        public IEnumerable<SelectListItem> AvailableDietPlans { get; set; }
     }
 }

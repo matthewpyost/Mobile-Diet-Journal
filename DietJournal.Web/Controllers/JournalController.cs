@@ -145,6 +145,12 @@ namespace DietJournal.Web.Controllers
             return View();
         }
 
+        public ActionResult Settings()
+        {
+            ViewBag.CurrentTab = "Settings";
+            return View();
+        }
+
         private string GetMealTypeDisplayText(MealType mealType)
         {
             var text = new StringBuilder();

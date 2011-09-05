@@ -6,7 +6,7 @@
 }
 
 <p class="directions">
-    Please enter your user name and password.
+    Please enter your email address and password.
 </p>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -14,29 +14,28 @@
 
 <form id="signupForm" action="/Account/Logon" method="post" data-transition="none">
     @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
-    <div>
-        <fieldset>
-            <legend>Account Information</legend>
 
-            <div class="editor-field" data-role="fieldcontain">
-                @Html.TextBoxFor(m => m.UserName, new { placeholder = "Email address" })
-                @Html.ValidationMessageFor(m => m.UserName)
-            </div>
-
-            <div class="editor-field" data-role="fieldcontain">
-                @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
-
-            <div class="editor-label" data-role="fieldcontain">
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe)
-            </div>
-
-            <p>
-                <input type="submit" value="Log On" />
-                <a href="/" data-role="button" data-direction="reverse" data-transition="slideup">Cancel</a>
-            </p>
-        </fieldset>
-    </div>
+    <ul data-role="listview" data-theme="d" data-inset="true">
+        <li data-role="list-divider">Account Information</li>
+        <li>
+            @Html.TextBoxFor(m => m.UserName, new { placeholder = "Email address" })
+            @Html.ValidationMessageFor(m => m.UserName)
+        </li>
+        <li>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+            @Html.ValidationMessageFor(m => m.Password)
+        </li>
+        <li>
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe)
+        </li>
+    </ul>
+    <p>
+        <input type="submit" value="Log On" />
+        <a href="/" data-role="button" data-direction="reverse" data-transition="slideup">Cancel</a>
+    </p>
+    <br />
+    <p>
+        <a href="@Url.Action("ForgotPassword","Account")" data-role="button" data-transition="pop" data-rel="dialog">Forgot Password</a> 
+    </p>
 </form>

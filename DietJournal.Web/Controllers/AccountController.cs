@@ -141,7 +141,7 @@ namespace DietJournal.Web.Controllers
             {
                 try
                 {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+                    var currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
                     isValid = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
                 }
                 catch (Exception)
@@ -149,14 +149,9 @@ namespace DietJournal.Web.Controllers
                     isValid = false;
                 }
 
-                if (isValid)
-                {
-                    return RedirectToAction("Settings", "Journal");
-                }
-                else
+                if (!isValid)
                 {
                     errorMessage = "The current password is incorrect or the new password is invalid.";
-                    //ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
                 }
             }
 
@@ -171,7 +166,43 @@ namespace DietJournal.Web.Controllers
         [HttpPost]
         public ActionResult ForgotPassword(ForgotPasswordModel model)
         {
-            return View();
+            var errorMessage = string.Empty;
+            bool isValid = true;
+
+            if (ModelState.IsValid)
+            {
+                var user = Membership.GetUser(model.Email, false);
+                if (user == null)
+                {
+                    errorMessage = "Unable to find a matching account for the specified email address.";
+                    isValid = false;
+                }
+                else
+                {
+                    if (user.IsLockedOut)
+                        user.UnlockUser();
+
+                    var password = user.ResetPassword();
+
+                    try
+                    {
+                        using (var smtp = new System.Net.Mail.SmtpClient())
+                        {
+                            var message = new System.Net.Mail.MailMessage("support@fastdietjournal.com", model.Email);
+                            message.Subject = "Support Request";
+                            message.Body = string.Format("Below you will find the new password you requested.\r\n\r\nPassword: {0}", password);
+                            smtp.Send(message);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        errorMessage = "We're sorry but there was an error sending you your new password.";
+                        isValid = false;
+                    }
+                }
+            }
+
+            return Json(new { IsValid = isValid, ErrorMessage = errorMessage });
         }
 
         //
@@ -221,25 +252,29 @@ namespace DietJournal.Web.Controllers
             using (var context = new DietJournalEntities())
             {
                 var result = context.ProfileSettings.FirstOrDefault(s => s.UserId == (Guid)membership.ProviderUserKey);
-                if (result != null)
+                if (result == null)
                 {
-                    result.FirstName = model.FirstName.Trim();
-                    result.LastName = model.LastName.Trim();
-                    if (!String.IsNullOrEmpty(model.Birthday))
-                        result.BirthDay = DateTime.Parse(model.Birthday);
-                    else
-                        result.BirthDay = null;
-                    result.Gender = model.Gender;
-                    result.CaloriesGoal = model.CaloriesGoal;
-                    result.CaptureCalories = model.CaptureCalories;
-                    result.CaptureCarbs = model.CaptureCarbs;
-                    result.CaptureFat = model.CaptureFat;
-                    result.CaptureProtein = model.CaptureProtein;
-                    result.DietPlanId = model.DietPlanId;
-                    result.WeightGoal = model.WeightGoal;
-
-                    context.SaveChanges();
+                    result = context.ProfileSettings.CreateObject();
+                    result.UserId = (Guid)membership.ProviderUserKey;
+                    context.ProfileSettings.AddObject(result);
                 }
+
+                result.FirstName = model.FirstName.Trim();
+                result.LastName = model.LastName.Trim();
+                if (!String.IsNullOrEmpty(model.Birthday))
+                    result.BirthDay = DateTime.Parse(model.Birthday);
+                else
+                    result.BirthDay = null;
+                result.Gender = model.Gender;
+                result.CaloriesGoal = model.CaloriesGoal;
+                result.CaptureCalories = model.CaptureCalories;
+                result.CaptureCarbs = model.CaptureCarbs;
+                result.CaptureFat = model.CaptureFat;
+                result.CaptureProtein = model.CaptureProtein;
+                result.DietPlanId = model.DietPlanId;
+                result.WeightGoal = model.WeightGoal;
+
+                context.SaveChanges();
             }
 
             return RedirectToAction("Settings", "Journal");

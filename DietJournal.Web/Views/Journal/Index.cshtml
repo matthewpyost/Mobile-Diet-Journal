@@ -5,7 +5,7 @@
 }
 
 <center>
-<table>
+<table width="100%">
     <tr>
 	    <td><a href="@Url.Action("Index", new { date = Model.AddDays(-1) } )" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-direction="reverse" data-transition="slide">Previous</a></td>
 	    <td><input id="datepicker" type="text" value="@Model.ToLongDateString()" readonly="readonly" /></td>

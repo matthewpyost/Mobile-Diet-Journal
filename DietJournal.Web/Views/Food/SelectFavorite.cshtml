@@ -1,0 +1,51 @@
+﻿@model DietJournal.Web.Models.FoodFavoriteSelectionModel
+@{
+    ViewBag.Title = "Food Favorite";
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+    function onSearchResults(results) {
+        $("#searchResults").html(results).trigger('create');
+        $.mobile.hidePageLoadingMsg();
+    }
+
+    function performSearch() {
+        $.mobile.showPageLoadingMsg();
+        $.ajax({
+            url: $("#searchForm").attr("action"),
+            type: "post",
+            data: $("#searchForm").serialize(),
+            success: onSearchResults
+        });
+    }
+
+</script>
+
+
+ @using (Html.BeginForm("FavoriteSearch", "Food", FormMethod.Post, new { id = "searchForm" }))
+ {
+     <ul data-role="listview" data-theme="d" data-inset="true">
+         <li data-role="list-divider">Favorite Search</li>
+         @if (Model.AvailableFoodEntryTypes != null && Model.AvailableFoodEntryTypes.Count() > 0)
+         {
+        <li>
+            @Html.DropDownList("FoodEntryType", Model.AvailableFoodEntryTypes, new { onChange = "performSearch()" })
+        </li>
+         }
+        <li>
+            @Html.TextBox("Title","", new { placeholder = "Title", onKeyUp = "performSearch()" })
+        </li>
+     </ul>
+ }
+
+@using (Html.BeginForm("SelectFavorite", "Food", FormMethod.Post, new { id = "favoriteForm" }))
+{
+    @Html.HiddenFor(m => m.ConsumedDate)
+    <div id="searchResults"></div>
+}

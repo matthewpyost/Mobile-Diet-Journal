@@ -20,6 +20,9 @@ namespace DietJournal.Web.Controllers
 
         public ActionResult LogOn()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -220,25 +223,20 @@ namespace DietJournal.Web.Controllers
                 AvailableDietPlans = GetDietPlanSelectItems()
             };
 
-            var membership = Membership.GetUser(HttpContext.User.Identity.Name);
-
-            using (var context = new DietJournalEntities())
+            var result = CurrentProfileSettings;
+            if (result != null)
             {
-                var result = context.ProfileSettings.FirstOrDefault(s => s.UserId == (Guid)membership.ProviderUserKey);
-                if (result != null)
-                {
-                    model.FirstName = result.FirstName;
-                    model.LastName = result.LastName;
-                    model.DietPlanId = result.DietPlanId.HasValue ? result.DietPlanId.Value : NoDietPlanValue;
-                    model.Birthday = result.BirthDay.HasValue ? result.BirthDay.Value.ToShortDateString() : string.Empty;
-                    model.WeightGoal = result.WeightGoal.HasValue ? result.WeightGoal.Value : 0;
-                    model.Gender = result.Gender.HasValue ? result.Gender.Value : 0;
-                    model.CaptureProtein = result.CaptureProtein;
-                    model.CaptureFat = result.CaptureFat;
-                    model.CaptureCarbs = result.CaptureCarbs;
-                    model.CaptureCalories = result.CaptureCalories;
-                    model.CaloriesGoal = result.CaloriesGoal.HasValue ? result.CaloriesGoal.Value : 0;
-                }
+                model.FirstName = result.FirstName;
+                model.LastName = result.LastName;
+                model.DietPlanId = result.DietPlanId.HasValue ? result.DietPlanId.Value : NoDietPlanValue;
+                model.Birthday = result.BirthDay.HasValue ? result.BirthDay.Value.ToShortDateString() : string.Empty;
+                model.WeightGoal = result.WeightGoal.HasValue ? result.WeightGoal.Value : 0;
+                model.Gender = result.Gender.HasValue ? result.Gender.Value : 0;
+                model.CaptureProtein = result.CaptureProtein;
+                model.CaptureFat = result.CaptureFat;
+                model.CaptureCarbs = result.CaptureCarbs;
+                model.CaptureCalories = result.CaptureCalories;
+                model.CaloriesGoal = result.CaloriesGoal.HasValue ? result.CaloriesGoal.Value : 0;
             }
 
             return PartialView(model);
@@ -275,6 +273,8 @@ namespace DietJournal.Web.Controllers
                 result.WeightGoal = model.WeightGoal;
 
                 context.SaveChanges();
+
+                CurrentProfileSettings = result;
             }
 
             return RedirectToAction("Settings", "Journal");

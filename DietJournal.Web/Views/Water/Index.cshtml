@@ -1,0 +1,41 @@
+﻿@model DietJournal.Web.Models.WaterCollectionModel
+@{
+    ViewBag.Title = "Water Entries";
+    Layout = "~/Views/Shared/_Journal.cshtml";
+}
+
+<script type="text/javascript">
+
+    function deleteEntry(id) {
+        $.mobile.showPageLoadingMsg();
+        $.ajax({
+            url: "/Water/Delete",
+            type: "post",
+            data: "id=" + id,
+            success: function (data) {
+                $.mobile.hidePageLoadingMsg();
+                $.mobile.changePage($.mobile.activePage.data('url'),
+                {
+                    transition: "none",
+                    reloadPage: true
+                });
+            }
+        });
+    }
+
+</script>
+
+@if (Model != null)
+{
+    <ul data-role="listview" data-split-icon="delete" data-split-theme="a">
+        <li data-icon="plus"><a href="@Url.Action("Add", new { date = Model.EntriesDate })" data-transition="pop" data-rel="dialog"><h2>@Model.EntriesDate.ToLongDateString()</h2></a></li>
+        <li data-role="list-divider"><b>@String.Format("Total Consumed Ounces: {0}", Model.Sum(e => e.Value))</b></li>
+    @foreach (var entry in Model)
+    {
+        <li data-theme="d">
+            <a href="#">@String.Format("{0} ounces", entry.Value)</a>
+            <a href="#" onclick="deleteEntry(@entry.Key)">Delete</a>
+        </li>
+    }
+    </ul>
+}

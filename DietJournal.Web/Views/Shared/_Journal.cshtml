@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div data-role="page">
+    <div data-role="header" data-position="inline" class="header">
+        @if (ViewBag.Back != null && ViewBag.Back == true)
+        {
+            if (ViewBag.Date != null)
+            {
+        <a href="@Url.Action("Index", "Journal", new { date = ViewBag.Date })" data-icon="back" data-direction="reverse">Back</a>
+            }
+            else
+            {
+        <a href="#" data-rel="back" data-icon="back">Back</a>
+            }
+        }
+        @RenderSection("LeftNav", false)
+        <h2>@ViewBag.Title</h2>
+        <a href="@Url.Action("LogOff", "Account")" data-icon="delete" class="ui-btn-right" data-ajax="false">Logout</a>
+    </div>
+	<div data-role="content" class="body">	
+		@RenderBody()
+	</div>
+	<div data-id="myfooter" data-role="footer" data-position="fixed" class="footer">
+	    <div data-role="navbar">
+		    <ul>
+			    <li><a href="@Url.Action("Index", "Journal", new { date = DateTime.Today })" data-icon="home" data-transition="slideup" class="@(ViewBag.CurrentTab == null || ViewBag.CurrentTab == "Entries" ? "ui-btn-active" : "")">Entries</a></li>
+			    <li><a href="@Url.Action("Favorites", "Journal")" data-icon="star" data-transition="slideup" class="@(ViewBag.CurrentTab == "Favorites" ? "ui-btn-active" : "")">Favorites</a></li>
+                <li><a href="@Url.Action("Reports", "Journal")" data-icon="grid" data-transition="slideup" class="@(ViewBag.CurrentTab == "Reports" ? "ui-btn-active" : "")">Reports</a></li>
+                <li><a href="@Url.Action("Settings", "Journal")" data-icon="gear" data-transition="slideup" class="@(ViewBag.CurrentTab == "Settings" ? "ui-btn-active" : "")">Settings</a></li>
+		    </ul>
+	    </div>
+	</div>
+</div>

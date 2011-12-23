@@ -1,0 +1,55 @@
+﻿@model DietJournal.Web.Models.WaterEntryModel
+@{
+    ViewBag.Title = "Water Entry";
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    function onSuccess(data) {
+        if (data.IsValid) {
+            $.mobile.changePage(data.ReturnUrl,
+            {
+                transition: "pop",
+                reverse: true,
+                reloadPage: true
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        $("#waterEntryForm").submit(function () {
+            if ($(this).valid()) {
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "post",
+                    data: $(this).serialize(),
+                    success: onSuccess
+                });
+            }
+            return false;
+        });
+    });
+
+</script>
+
+@using (Html.BeginForm("Add", "Water", FormMethod.Post, new { id = "waterEntryForm" }))
+{
+    @Html.ValidationSummary(true, "Water entry submit/update was unsuccessful. Please correct the errors and try again.")
+    
+    <div>
+        @Html.LabelFor(m => m.Ounces)
+        @Html.TextBoxFor(m => m.Ounces, new { type = "number" })
+        @Html.ValidationMessageFor(m => m.Ounces)
+    </div>
+
+    <p>
+        <input type="submit" value="Submit" data-theme="b"/>
+    </p>
+    
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ConsumedDate)
+}

@@ -41,6 +41,37 @@ namespace DietJournal.Web.Controllers
             }
         }
 
+        public ProfileSetting CurrentProfileSettings
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(CurrentUserName))
+                    return new ProfileSetting();
+
+                var profileSettings = HttpContext.Cache[CurrentUserName] as ProfileSetting;
+                if (profileSettings != null)
+                    return profileSettings;
+
+                var membership = Membership.GetUser(CurrentUserName);
+                if (membership == null)
+                    return new ProfileSetting();
+
+                using (var context = new DietJournalEntities())
+                {
+                    profileSettings = context.ProfileSettings.FirstOrDefault(s => s.UserId == (Guid)membership.ProviderUserKey);
+                }
+
+                return profileSettings != null ? profileSettings : new ProfileSetting();
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(CurrentUserName))
+                    return;
+
+                HttpContext.Cache[CurrentUserName] = value;
+            }
+        }
+
         public bool IsAuthenticated
         {
             get

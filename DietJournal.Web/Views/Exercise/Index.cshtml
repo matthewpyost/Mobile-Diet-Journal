@@ -1,0 +1,24 @@
+﻿@model DietJournal.Web.Models.ExerciseCollectionModel
+@{
+    ViewBag.Title = "Exercise Entries";
+    Layout = "~/Views/Shared/_Journal.cshtml";
+}
+
+@if (Model != null)
+{
+    <ul data-role="listview">
+        <li data-icon="plus"><a href="@Url.Action("Add", new { date = Model.EntriesDate })" data-transition="slide"><h2>@Model.EntriesDate.ToLongDateString()</h2></a></li>
+    @foreach (var meal in Model)
+    {
+        <li data-role="list-divider">@meal.Key</li>
+        
+        if (meal.Value != null)
+        {
+            foreach (var entry in meal.Value)
+            {
+        <li data-theme="d"><a href="@Url.Action("Entry", new { id = entry.Key })">@entry.Value</a></li>
+            }
+        }
+    }
+    </ul>
+}

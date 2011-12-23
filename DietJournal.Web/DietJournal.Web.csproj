@@ -14,6 +14,7 @@
     <AssemblyName>DietJournal.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,9 +67,13 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ExerciseController.cs" />
+    <Compile Include="Controllers\FoodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ICommunicationObjectExtensions.cs" />
     <Compile Include="Controllers\JournalController.cs" />
+    <Compile Include="Controllers\SupplementsController.cs" />
+    <Compile Include="Controllers\WaterController.cs" />
     <Compile Include="Entities.cs" />
     <Compile Include="DietJournal.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -80,7 +85,13 @@
     </Compile>
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BaseEntryModel.cs" />
+    <Compile Include="Models\ExerciseEntryModel.cs" />
     <Compile Include="Models\FoodEntryModel.cs" />
+    <Compile Include="Models\JournalIndexModel.cs" />
+    <Compile Include="Models\SupplementEntryModel.cs" />
+    <Compile Include="Models\WaterEntryModel.cs" />
+    <Compile Include="Models\WeightEntryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -154,26 +165,15 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Journal\Food.cshtml" />
-    <Content Include="Views\Journal\Water.cshtml" />
-    <Content Include="Views\Journal\Exercise.cshtml" />
-    <Content Include="Views\Journal\Supplements.cshtml" />
-    <Content Include="Views\Journal\FoodEntry.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Food.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Water.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Supplements.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Exercise.cshtml" />
+    <Content Include="Views\Exercise\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Privacy.cshtml" />
@@ -197,9 +197,6 @@
     <Content Include="Views\Journal\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Journal\_Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Journal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +210,75 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\ForgotPassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Food\EntryType.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Journal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Food\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Food\About.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Food\Entry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Water\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Water\About.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Water\Entry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Exercise\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Exercise\Entry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Exercise\EntryType.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Supplements\About.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Supplements\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Supplements\Entry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Journal\Reports.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Journal\WeightEntry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Food\SelectFavorite.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Food\FavoriteSearchResults.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Journal\Favorites.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Food\Favorites.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Exercise\SelectFavorite.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Exercise\Favorites.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Exercise\FavoriteSearchResults.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -229,12 +295,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7444</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:7444/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

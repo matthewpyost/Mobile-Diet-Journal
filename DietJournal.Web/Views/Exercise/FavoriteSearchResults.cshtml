@@ -1,0 +1,19 @@
+﻿@model List<DietJournal.Web.Models.ExerciseFavoriteResultModel> 
+
+<ul data-role="listview" data-theme="d" data-inset="true">
+    <li data-role="list-divider">SearchResults</li>
+@if (Model != null && Model.Count > 0)
+{
+    foreach(var result in Model)
+    {
+    <li>
+        <input type="radio" name="Selection" id="@result.Id" value="@result.Id" onChange="$('#favoriteForm').submit()" />
+        <label for="@result.Id">@result.Title</label>
+    </li>
+    }
+}
+else
+{
+    <li>No results found</li>
+}
+</ul>

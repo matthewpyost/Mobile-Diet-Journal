@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Favorites";
+    Layout = "~/Views/Shared/_Journal.cshtml";
+}
+
+<ul data-role="listview">
+	<li>@Html.ActionLink("Food", "Favorites", "Food")</li>
+    <li>@Html.ActionLink("Exercise", "Favorites", "Exercise")</li>
+	<li>@Html.ActionLink("Supplements", "Favorites", "Supplements")</li>
+</ul>
+

@@ -1,0 +1,106 @@
+﻿@model DietJournal.Web.Models.SupplementEntryModel
+@{
+    ViewBag.Title = "Supplement Entry";
+    Layout = "~/Views/Shared/_Journal.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    var previousPage = '@Url.Action("Index", "Supplements", new { date = Model.ConsumedDate })';
+
+    function onSuccess(data) {
+        if (data.IsValid) {
+            $.mobile.changePage(previousPage,
+            {
+                transition: "slide",
+                reverse: true,
+                reloadPage: true
+            });
+        }
+        else {
+
+        }
+    }
+
+    function deleteEntry(id) {
+        if (confirm('Are you sure you wish to delete this entry?')) {
+            $.mobile.showPageLoadingMsg();
+            $.ajax({
+                url: "/Supplements/Delete",
+                type: "post",
+                data: "id=" + id,
+                success: function () {
+                    $.mobile.changePage(previousPage,
+                    {
+                        transition: "slide",
+                        reverse: true,
+                        reloadPage: true
+                    });
+                }
+            });
+        }
+
+        return false;
+    }
+
+    $(document).ready(function () {
+        $("#supplementEntryForm").submit(function () {
+            if ($(this).valid()) {
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "post",
+                    data: $(this).serialize(),
+                    success: onSuccess
+                });
+            }
+            return false;
+        });
+    });
+
+</script>
+
+@section LeftNav
+{
+    @if(Model.Id == 0)
+    {
+        <a href="#" data-icon="star">Use Favorite</a>
+    }
+}
+
+@using (Html.BeginForm("Entry", "Supplements", FormMethod.Post, new { id = "supplementEntryForm" }))
+{
+    @Html.ValidationSummary(true, "Supplement entry submit/update was unsuccessful. Please correct the errors and try again.")
+
+    <ul data-role="listview" data-theme="d" data-inset="true">
+        <li data-role="list-divider">Supplement Details</li>
+        <li>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.Milligrams)
+            @Html.TextBoxFor(m => m.Milligrams, new { type = "number", step = "0.1" })
+        </li>
+    </ul>
+    
+    @Html.CheckBoxFor(m => m.Favorite, new { Class = "custom" })@Html.LabelFor(m => m.Favorite)
+    
+    <p>
+        @if (Model.Id <= 0)
+        {
+        <input type="submit" value="Submit" data-theme="b"/>
+        <input type="reset" value="Cancel" data-theme="e" onclick="history.back()"/>
+        }
+        else
+        {
+        <input type="submit" value="Update" data-theme="b" />
+        <input type="button" value="Delete" data-theme="e" onclick="deleteEntry('@Model.Id'); return false" />
+        }
+    </p>
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ConsumedDate)
+}

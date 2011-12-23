@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DietJournal.Web.Models.ExerciseTypeValueModel>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <ul data-role="listview" data-theme="d" data-inset="true">
+        <li data-role="list-divider">Specific Details</li>
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        var entry = Model.ElementAt(i);
+        
+        <li>
+            <label for="@String.Format("EntryValues_{0}__Value", i)">@entry.Label:</label>
+            <input id="@String.Format("EntryValues_{0}__Value", i)" name="@String.Format("EntryValues[{0}].Value", i)" type="@(entry.InputType == "decimal" ? "number" : entry.InputType)" @(entry.InputType == "decimal" ? "step=0.1" : "")  @(entry.IsRequired ? "data-val=true data-val-required=Required" : "") 
+                value="@(entry.Value != null ? entry.Value.Value : string.Empty)"/>
+        <input type="hidden" id="@String.Format("EntryValues_{0}__EntryTypeValueId", i)" name="@String.Format("EntryValues[{0}].EntryTypeValueId", i)" value="@entry.Id.ToString()"/>
+        <input type="hidden" id="@String.Format("EntryValues_{0}__Id", i)" name="@String.Format("EntryValues[{0}].Id", i)" value="@(entry.Value != null ? entry.Value.Id : "")"  />
+        @if (entry.IsRequired)
+        {
+            <span class="field-validation-valid" data-valmsg-for="@String.Format("EntryValues_{0}__Value", i)" data-valmsg-replace="true"></span>
+        }
+        </li>
+    }
+    </ul>
+}

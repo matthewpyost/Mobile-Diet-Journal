@@ -1,0 +1,16 @@
+﻿@model DietJournal.Web.Models.SupplementsCollectionModel
+@{
+    ViewBag.Title = "Supplement Entries";
+    Layout = "~/Views/Shared/_Journal.cshtml";
+}
+
+@if (Model != null)
+{
+    <ul data-role="listview">
+        <li data-icon="plus"><a href="@Url.Action("Add", new { date = Model.EntriesDate })" data-transition="slide"><h2>@Model.EntriesDate.ToLongDateString()</h2></a></li>
+    @foreach (var entry in Model)
+    {
+        <li data-theme="d"><a href="@Url.Action("Entry", new { id = entry.Key })">@entry.Value</a></li>
+    }
+    </ul>
+}

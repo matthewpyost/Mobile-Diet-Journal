@@ -1,6 +1,30 @@
-﻿@{
+﻿@model DietJournal.Web.Models.FeedbackModel
+@{
     ViewBag.Title = "Feedback";
     Layout = "~/Views/Home/_Layout.cshtml";
 }
 
-<h2>Feedback</h2>
+<p class="directions">
+    Your feedback is important to us so please feel free to send us your comments and/or suggestions by using the form below.
+</p>
+
+<form id="feedbackForm" action="@Url.Action("Feedback","Home")" method="post" data-transition="none">
+    @Html.ValidationSummary(true, "Sending of your feedback was unsuccessful. Please correct the errors and try again.")
+    
+    <ul data-role="listview" data-theme="d" data-inset="true">
+        <li data-role="list-divider">Feedback Details</li>
+        <li>
+            @Html.LabelFor(m => m.EmailAddress)
+            @Html.ValidationMessageFor(m => m.EmailAddress)
+            @Html.TextBoxFor(m => m.EmailAddress)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.Comments)
+            @Html.ValidationMessageFor(m => m.Comments)
+            @Html.TextAreaFor(m => m.Comments)
+        </li>
+    </ul>
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+</form>

@@ -85,9 +85,7 @@ namespace DietJournal.Web.Controllers
                 }
             }
 
-            ViewBag.Back = model.Id > 0;
-
-            return View("Entry", model);
+            return EntryView(model);
         }
 
         [HttpPost]
@@ -251,42 +249,40 @@ namespace DietJournal.Web.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public ActionResult SelectFavorite(ExerciseFavoriteSelectionModel model)
-        //{
-        //    var entryModel = new FoodEntryModel
-        //    {
-        //        ConsumedDate = model.ConsumedDate
-        //    };
+        [HttpPost]
+        public ActionResult SelectFavorite(ExerciseFavoriteSelectionModel model)
+        {
+            var entryModel = new ExerciseEntryModel
+            {
+                ConsumedDate = model.ConsumedDate
+            };
 
-        //    //if (ModelState.IsValid && !String.IsNullOrEmpty(model.Selection))
-        //    //{
-        //    //    int favoriteId = int.Parse(model.Selection);
+            if (ModelState.IsValid && !String.IsNullOrEmpty(model.Selection))
+            {
+                int favoriteId = int.Parse(model.Selection);
 
-        //    //    using (var context = new DietJournalEntities())
-        //    //    {
-        //    //        var favorite = context.FoodFavorites.FirstOrDefault(f => f.Id == favoriteId);
-        //    //        if (favorite != null)
-        //    //        {
-        //    //            entryModel.FoodEntryType = favorite.MealType.ToString();
-        //    //            entryModel.Title = favorite.Title;
-        //    //            entryModel.Description = favorite.Description;
-        //    //            entryModel.Calories = favorite.Calories.HasValue ? favorite.Calories.Value : 0;
-        //    //            entryModel.Protein = favorite.Protein.HasValue ? favorite.Protein.Value : 0;
-        //    //            entryModel.Carbs = favorite.Carbs.HasValue ? favorite.Carbs.Value : 0;
-        //    //            entryModel.Fat = favorite.Fat.HasValue ? favorite.Fat.Value : 0;
-        //    //        }
-        //    //    }
-        //    //}
-        //    //entryModel.Favorite = true;
+                using (var context = new DietJournalEntities())
+                {
+                    var favorite = context.ExerciseFavorites.FirstOrDefault(f => f.Id == favoriteId);
+                    if (favorite != null)
+                    {
+                        entryModel.ExerciseType = favorite.Type.ToString();
+                        entryModel.Description = favorite.Description;
+                        entryModel.Favorite = true;
+                    }
+                }
+            }
 
-        //    return EntryView(entryModel);
-        //}
+            entryModel.AvailableExerciseTypes = GetAvailableExerciseTypes();
+
+            return EntryView(entryModel);
+        }
+
 
         [HttpPost]
         public ActionResult FavoriteSearch(string ExerciseType, string Description)
         {
-            List<FoodFavoriteResultModel> searchResults = null;
+            List<ExerciseFavoriteResultModel> searchResults = null;
 
             var exerciseType = !String.IsNullOrEmpty(ExerciseType) ? int.Parse(ExerciseType) : 0;
             using (var context = new DietJournalEntities())
@@ -295,7 +291,7 @@ namespace DietJournal.Web.Controllers
                                  where f.UserId == CurrentUserId.Value
                                  && (exerciseType == 0 || f.Type == exerciseType)
                                  && (String.IsNullOrEmpty(Description) || f.Description.Contains(Description))
-                                 select new FoodFavoriteResultModel
+                                 select new ExerciseFavoriteResultModel
                                  {
                                      Id = f.Id,
                                      Title = f.Description
@@ -341,6 +337,13 @@ namespace DietJournal.Web.Controllers
             }
 
             return availableExerciseTypes;
+        }
+
+        private ActionResult EntryView(ExerciseEntryModel model)
+        {
+            ViewBag.Back = model.Id > 0;
+
+            return View("Entry", model);
         }
     }
 }

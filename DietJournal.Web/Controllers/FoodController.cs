@@ -280,12 +280,12 @@ namespace DietJournal.Web.Controllers
                         entryModel.Protein = favorite.Protein.HasValue ? favorite.Protein.Value : 0;
                         entryModel.Carbs = favorite.Carbs.HasValue ? favorite.Carbs.Value : 0;
                         entryModel.Fat = favorite.Fat.HasValue ? favorite.Fat.Value : 0;
+                        entryModel.Favorite = true;
                     }
                 }
             }
 
             SetFoodEntryProfileSettings(entryModel);
-            entryModel.Favorite = true;
 
             return EntryView(entryModel);
         }

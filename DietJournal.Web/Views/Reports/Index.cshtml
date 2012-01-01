@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_Journal.cshtml";
+}
+<ul data-role="listview">
+    <li>@Html.ActionLink("Entries Summary", "Entries", "Reports")</li>
+    <li>@Html.ActionLink("Weight Tracking", "Weight", "Reports")</li>
+</ul>
+

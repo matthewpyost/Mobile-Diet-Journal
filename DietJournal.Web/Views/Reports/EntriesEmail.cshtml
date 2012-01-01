@@ -1,0 +1,35 @@
+﻿@model DietJournal.Web.Models.EntriesShareReportModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@Model.Subject</title>
+</head>
+<body>
+    <p>@Model.Message</p>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Entry Type</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    @foreach (var datedEntry in Model.Results)
+    {
+        foreach (var entryType in datedEntry)
+        {
+            foreach (var entry in entryType.Value)
+            {
+        <tr>
+            <td>@datedEntry.EntryDate.ToShortDateString()</td>
+            <td>@entryType.Key</td>
+            <td>@(!String.IsNullOrEmpty(entry.Category) ? String.Format("{0}: ", entry.Category) : string.Empty)@entry.Title</td>
+            <td>@entry.Description</td>
+        </tr>
+            }
+        }
+    }
+    </table>
+</body>
+</html>

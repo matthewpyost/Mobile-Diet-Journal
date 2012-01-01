@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DietJournal.Web.Models.SupplementFavoriteResultModel>
+@{
+    ViewBag.Title = "Exercise Favorites";
+    Layout = "~/Views/Shared/_Journal.cshtml";
+}
+
+<script type="text/javascript">
+
+    function deleteEntry(id) {
+        $.mobile.showPageLoadingMsg();
+        $.ajax({
+            url: "/Supplements/DeleteFavorite",
+            type: "post",
+            data: "id=" + id,
+            success: function (data) {
+                $.mobile.hidePageLoadingMsg();
+                $.mobile.changePage($.mobile.activePage.data('url'),
+                {
+                    transition: "none",
+                    reloadPage: true
+                });
+            }
+        });
+    }
+
+</script>
+
+@if (Model != null)
+{
+    <ul data-role="listview">
+    @foreach (var entry in Model)
+    {
+        <li data-theme="d"><a>@entry.Title (@entry.Milligrams mil)</a><a href="#" onclick="deleteEntry(@entry.Id)" data-icon="delete" data-theme="a">Delete</a></li>
+    }
+    </ul>
+}

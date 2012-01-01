@@ -100,9 +100,7 @@ namespace DietJournal.Web.Controllers
                 }
             }
 
-            ViewBag.Back = model.Id > 0;
-
-            return View("Entry", model);
+            return EntryView(model);
         }
 
         [HttpPost]
@@ -129,6 +127,18 @@ namespace DietJournal.Web.Controllers
                     entry.SavedDate = DateTime.Now;
                     entry.Milligrams = !String.IsNullOrEmpty(model.Milligrams) ? decimal.Parse(model.Milligrams) : 0M;
 
+                    if (model.Favorite)
+                    {
+                        var favorite = new SupplementFavorite
+                        {
+                            UserId = CurrentUserId.Value,
+                            Milligrams = entry.Milligrams,
+                            Name = entry.Name
+                        };
+
+                        entities.SupplementFavorites.AddObject(favorite);
+                    }
+
                     entities.SaveChanges();
                 }
 
@@ -150,6 +160,107 @@ namespace DietJournal.Web.Controllers
                     context.SaveChanges();
                 }
             }
+        }
+
+        [Authorize]
+        public ActionResult Favorites()
+        {
+            ViewBag.Back = true;
+            ViewBag.CurrentTab = "Favorites";
+
+            IEnumerable<SupplementFavoriteResultModel> model = null;
+
+            using (var context = new DietJournalEntities())
+            {
+                model = (from f in context.SupplementFavorites
+                         where f.UserId == CurrentUserId
+                         select new SupplementFavoriteResultModel 
+                         { 
+                             Id = f.Id, 
+                             Title = f.Name,
+                             Milligrams = f.Milligrams.HasValue ? f.Milligrams.Value : 0M
+                         }).ToList();
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        public ActionResult SelectFavorite(DateTime date)
+        {
+            var model = new SupplementFavoriteSelectionModel
+            {
+                ConsumedDate = date
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult FavoriteSearch(string Name)
+        {
+            List<SupplementFavoriteResultModel> searchResults = null;
+
+            using (var context = new DietJournalEntities())
+            {
+                searchResults = (from f in context.SupplementFavorites
+                                 where f.UserId == CurrentUserId.Value
+                                 && (String.IsNullOrEmpty(Name) || f.Name.Contains(Name))
+                                 select new SupplementFavoriteResultModel
+                                 {
+                                     Id = f.Id,
+                                     Title = f.Name,
+                                     Milligrams = f.Milligrams.HasValue ? f.Milligrams.Value : 0M,
+                                 }).ToList();
+            }
+
+            return PartialView("FavoriteSearchResults", searchResults);
+        }
+
+        [HttpPost]
+        public ActionResult SelectFavorite(SupplementFavoriteSelectionModel model)
+        {
+            var entryModel = new SupplementEntryModel
+            {
+                ConsumedDate = model.ConsumedDate
+            };
+
+            if (ModelState.IsValid && !String.IsNullOrEmpty(model.Selection))
+            {
+                int favoriteId = int.Parse(model.Selection);
+
+                using (var context = new DietJournalEntities())
+                {
+                    var favorite = context.SupplementFavorites.FirstOrDefault(f => f.Id == favoriteId);
+                    if (favorite != null)
+                    {
+                        entryModel.Milligrams = favorite.Milligrams.HasValue ? favorite.Milligrams.Value.ToString() : string.Empty;
+                        entryModel.Name = favorite.Name;
+                        entryModel.Favorite = true;
+                    }
+                }
+            }
+
+            return EntryView(entryModel);
+        }
+
+        [Authorize]
+        public void DeleteFavorite(int id)
+        {
+            using (var context = new DietJournalEntities())
+            {
+                var favorite = context.SupplementFavorites.FirstOrDefault(f => f.UserId == CurrentUserId && f.Id == id);
+                if (favorite != null)
+                    context.SupplementFavorites.DeleteObject(favorite);
+
+                context.SaveChanges();
+            }
+        }
+
+        private ActionResult EntryView(SupplementEntryModel model)
+        {
+            ViewBag.Back = model.Id > 0;
+
+            return View("Entry", model);
         }
     }
 }

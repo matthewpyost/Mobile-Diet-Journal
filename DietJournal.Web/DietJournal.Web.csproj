@@ -72,6 +72,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ICommunicationObjectExtensions.cs" />
     <Compile Include="Controllers\JournalController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SupplementsController.cs" />
     <Compile Include="Controllers\WaterController.cs" />
     <Compile Include="Entities.cs" />
@@ -87,8 +88,10 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BaseEntryModel.cs" />
     <Compile Include="Models\ExerciseEntryModel.cs" />
+    <Compile Include="Models\FeedbackModel.cs" />
     <Compile Include="Models\FoodEntryModel.cs" />
     <Compile Include="Models\JournalIndexModel.cs" />
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\SupplementEntryModel.cs" />
     <Compile Include="Models\WaterEntryModel.cs" />
     <Compile Include="Models\WeightEntryModel.cs" />
@@ -254,9 +257,6 @@
     <Content Include="Views\Supplements\Entry.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Journal\Reports.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Journal\WeightEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +279,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Exercise\FavoriteSearchResults.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Supplements\Favorites.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Supplements\FavoriteSearchResults.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Supplements\SelectFavorite.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\Entries.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\EntryResults.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\EntriesEmail.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

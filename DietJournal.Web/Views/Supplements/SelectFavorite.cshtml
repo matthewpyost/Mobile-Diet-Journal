@@ -1,4 +1,4 @@
-﻿@model DietJournal.Web.Models.ExerciseFavoriteSelectionModel
+﻿@model DietJournal.Web.Models.SupplementFavoriteSelectionModel
 @{
     ViewBag.Title = "Select Favorite";
     Layout = "~/Views/Shared/_Dialog.cshtml";
@@ -25,26 +25,24 @@
         });
     }
 
+    $(document).ready(function () {
+        performSearch();
+    });
+
 </script>
 
 
- @using (Html.BeginForm("FavoriteSearch", "Exercise", FormMethod.Post, new { id = "searchForm" }))
+ @using (Html.BeginForm("FavoriteSearch", "Supplements", FormMethod.Post, new { id = "searchForm" }))
  {
      <ul data-role="listview" data-theme="d" data-inset="true">
-         <li data-role="list-divider">Favorite Search</li>
-         @if (Model.AvailableExerciseTypes != null && Model.AvailableExerciseTypes.Count() > 0)
-         {
+        <li data-role="list-divider">Favorite Search</li>
         <li>
-            @Html.DropDownList("ExerciseType", Model.AvailableExerciseTypes, new { onChange = "performSearch()" })
-        </li>
-         }
-        <li>
-            @Html.TextBox("Description", "", new { placeholder = "Description", onKeyUp = "performSearch()" })
+            @Html.TextBox("Name", "", new { placeholder = "Name", onKeyUp = "performSearch()" })
         </li>
      </ul>
  }
 
-@using (Html.BeginForm("SelectFavorite", "Exercise", FormMethod.Post, new { id = "favoriteForm" }))
+@using (Html.BeginForm("SelectFavorite", "Supplements", FormMethod.Post, new { id = "favoriteForm" }))
 {
     @Html.HiddenFor(m => m.ConsumedDate)
     <div id="searchResults"></div>

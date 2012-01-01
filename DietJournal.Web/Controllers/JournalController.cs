@@ -13,6 +13,7 @@ namespace DietJournal.Web.Controllers
     [Authorize]
     public class JournalController : BaseController
     {
+        [Authorize]
         public ActionResult Index(DateTime? date)
         {
             ViewBag.CurrentTab = "Entries";
@@ -36,18 +37,14 @@ namespace DietJournal.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult Settings()
         {
             ViewBag.CurrentTab = "Settings";
             return View();
         }
 
-        public ActionResult Reports()
-        {
-            ViewBag.CurrentTab = "Reports";
-            return View();
-        }
-
+        [Authorize]
         public ActionResult Favorites()
         {
             ViewBag.CurrentTab = "Favorites";

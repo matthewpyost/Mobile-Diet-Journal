@@ -21,6 +21,7 @@
           <EntitySet Name="FoodFavorites" EntityType="DietJournal.Entities.Store.FoodFavorites" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProfileSettings" EntityType="DietJournal.Entities.Store.ProfileSettings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SupplementEntries" EntityType="DietJournal.Entities.Store.SupplementEntries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SupplementFavorites" EntityType="DietJournal.Entities.Store.SupplementFavorites" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WaterEntries" EntityType="DietJournal.Entities.Store.WaterEntries" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WeightEntries" EntityType="DietJournal.Entities.Store.WeightEntries" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_DietPlans_DietPlans" Association="DietJournal.Entities.Store.FK_DietPlans_DietPlans">
@@ -193,6 +194,15 @@
           <Property Name="EntryDate" Type="datetime" Nullable="false" />
           <Property Name="SavedDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="SupplementFavorites">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Milligrams" Type="decimal" />
+        </EntityType>
         <EntityType Name="WaterEntries">
           <Key>
             <PropertyRef Name="Id" />
@@ -251,6 +261,7 @@
           <EntitySet Name="ExerciseTypeValues" EntityType="DietJournal.Entities.ExerciseTypeValue" />
           <EntitySet Name="ExerciseTypes" EntityType="DietJournal.Entities.ExerciseType" />
           <EntitySet Name="ExerciseFavorites" EntityType="DietJournal.Entities.ExerciseFavorite" />
+          <EntitySet Name="SupplementFavorites" EntityType="DietJournal.Entities.SupplementFavorite" />
         </EntityContainer>
         <EntityType Name="BloodPressureEntry">
           <Key>
@@ -453,6 +464,15 @@
           <Property Type="Int32" Name="Type" Nullable="false" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="SupplementFavorite">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Milligrams" Precision="18" Scale="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -637,6 +657,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SupplementFavorites">
+            <EntityTypeMapping TypeName="DietJournal.Entities.SupplementFavorite">
+              <MappingFragment StoreEntitySet="SupplementFavorites">
+                <ScalarProperty Name="Milligrams" ColumnName="Milligrams" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -681,6 +711,7 @@
         <EntityTypeShape EntityType="DietJournal.Entities.ExerciseTypeValue" Width="1.5" PointX="0.75" PointY="10.75" Height="1.9802864583333388" />
         <EntityTypeShape EntityType="DietJournal.Entities.ExerciseType" Width="1.5" PointX="3.375" PointY="10.75" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="DietJournal.Entities.ExerciseFavorite" Width="1.5" PointX="10.375" PointY="11.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="DietJournal.Entities.SupplementFavorite" Width="1.5" PointX="12.375" PointY="5.75" Height="1.5956835937500031" />
       </Diagram>
     </Diagrams>
   </Designer>

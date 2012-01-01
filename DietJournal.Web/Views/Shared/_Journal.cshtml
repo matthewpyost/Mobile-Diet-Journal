@@ -27,7 +27,7 @@
 		    <ul>
 			    <li><a href="@Url.Action("Index", "Journal", new { date = DateTime.Today })" data-icon="home" data-transition="slideup" class="@(ViewBag.CurrentTab == null || ViewBag.CurrentTab == "Entries" ? "ui-btn-active" : "")">Entries</a></li>
 			    <li><a href="@Url.Action("Favorites", "Journal")" data-icon="star" data-transition="slideup" class="@(ViewBag.CurrentTab == "Favorites" ? "ui-btn-active" : "")">Favorites</a></li>
-                <li><a href="@Url.Action("Reports", "Journal")" data-icon="grid" data-transition="slideup" class="@(ViewBag.CurrentTab == "Reports" ? "ui-btn-active" : "")">Reports</a></li>
+                <li><a href="@Url.Action("Index", "Reports")" data-icon="grid" data-transition="slideup" class="@(ViewBag.CurrentTab == "Reports" ? "ui-btn-active" : "")">Reports</a></li>
                 <li><a href="@Url.Action("Settings", "Journal")" data-icon="gear" data-transition="slideup" class="@(ViewBag.CurrentTab == "Settings" ? "ui-btn-active" : "")">Settings</a></li>
 		    </ul>
 	    </div>

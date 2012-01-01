@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DietJournal.Web.Models
 {
@@ -21,4 +22,16 @@ namespace DietJournal.Web.Models
         public DateTime EntriesDate { get; set; }
     }
 
+    public class SupplementFavoriteSelectionModel
+    {
+        public string Selection { get; set; }
+        public DateTime ConsumedDate { get; set; }
+    }
+
+    public class SupplementFavoriteResultModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public decimal Milligrams { get; set; }
+    }
 }

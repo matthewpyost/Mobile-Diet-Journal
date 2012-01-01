@@ -46,6 +46,15 @@
         return false;
     }
 
+    function Cancel() {
+        $.mobile.changePage(previousPage,
+        {
+            transition: "slide",
+            reverse: true,
+            reloadPage: true
+        });
+    }
+
     $(document).ready(function () {
         $("#supplementEntryForm").submit(function () {
             if ($(this).valid()) {
@@ -64,9 +73,9 @@
 
 @section LeftNav
 {
-    @if(Model.Id == 0)
+    @if(Model.Id == 0 && !Model.Favorite)
     {
-        <a href="#" data-icon="star">Use Favorite</a>
+        <a href='@Url.Action("SelectFavorite", "Supplements", new { date = Model.ConsumedDate })' data-icon="star" data-transition="pop" data-rel="dialog">Favorite</a>
     }
 }
 
@@ -87,13 +96,16 @@
         </li>
     </ul>
     
+    if (!Model.Favorite)
+    {
     @Html.CheckBoxFor(m => m.Favorite, new { Class = "custom" })@Html.LabelFor(m => m.Favorite)
+    }
     
     <p>
         @if (Model.Id <= 0)
         {
         <input type="submit" value="Submit" data-theme="b"/>
-        <input type="reset" value="Cancel" data-theme="e" onclick="history.back()"/>
+        <input type="reset" value="Cancel" data-theme="e" onclick="Cancel()"/>
         }
         else
         {

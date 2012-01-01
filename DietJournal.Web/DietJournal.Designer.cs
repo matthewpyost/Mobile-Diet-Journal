@@ -341,6 +341,22 @@ namespace DietJournal.Web
             }
         }
         private ObjectSet<ExerciseFavorite> _ExerciseFavorites;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SupplementFavorite> SupplementFavorites
+        {
+            get
+            {
+                if ((_SupplementFavorites == null))
+                {
+                    _SupplementFavorites = base.CreateObjectSet<SupplementFavorite>("SupplementFavorites");
+                }
+                return _SupplementFavorites;
+            }
+        }
+        private ObjectSet<SupplementFavorite> _SupplementFavorites;
 
         #endregion
         #region AddTo Methods
@@ -479,6 +495,14 @@ namespace DietJournal.Web
         public void AddToExerciseFavorites(ExerciseFavorite exerciseFavorite)
         {
             base.AddObject("ExerciseFavorites", exerciseFavorite);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SupplementFavorites EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSupplementFavorites(SupplementFavorite supplementFavorite)
+        {
+            base.AddObject("SupplementFavorites", supplementFavorite);
         }
 
         #endregion
@@ -3275,6 +3299,137 @@ namespace DietJournal.Web
         }
         private global::System.Decimal _Milligrams;
         partial void OnMilligramsChanging(global::System.Decimal value);
+        partial void OnMilligramsChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DietJournal.Entities", Name="SupplementFavorite")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SupplementFavorite : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SupplementFavorite object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        public static SupplementFavorite CreateSupplementFavorite(global::System.Int32 id, global::System.Guid userId, global::System.String name)
+        {
+            SupplementFavorite supplementFavorite = new SupplementFavorite();
+            supplementFavorite.Id = id;
+            supplementFavorite.UserId = userId;
+            supplementFavorite.Name = name;
+            return supplementFavorite;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Guid _UserId;
+        partial void OnUserIdChanging(global::System.Guid value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> Milligrams
+        {
+            get
+            {
+                return _Milligrams;
+            }
+            set
+            {
+                OnMilligramsChanging(value);
+                ReportPropertyChanging("Milligrams");
+                _Milligrams = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Milligrams");
+                OnMilligramsChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _Milligrams;
+        partial void OnMilligramsChanging(Nullable<global::System.Decimal> value);
         partial void OnMilligramsChanged();
 
         #endregion

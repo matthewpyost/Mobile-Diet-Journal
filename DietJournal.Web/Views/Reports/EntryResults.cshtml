@@ -1,0 +1,32 @@
+﻿@model List<DietJournal.Web.Models.EntriesSummaryResults>
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var result in Model)
+    {
+    <div id="reportOptions" data-role="collapsible" data-theme="a" data-content-theme="d" data-collapsed="true">
+        <h3>@result.EntryDate.ToString("MMMM dd, yyyy")</h3>
+        <p>
+            <ul data-role="listview" data-theme="d" data-dividertheme="e">
+                @foreach (var entry in result)
+                {
+                    <li data-role="list-divider"><h4>@entry.Key</h4></li>
+                    foreach(var entryResult in entry.Value)
+                    {
+                        <li>
+                            <h5>
+                                @(!String.IsNullOrEmpty(entryResult.Category) ? String.Format("{0}: ", entryResult.Category) : string.Empty)@entryResult.Title
+                            </h5>
+                            @if(!String.IsNullOrEmpty(entryResult.Description))
+                            {
+                            <p>@entryResult.Description</p>   
+                            }
+                        </li>
+                    }
+                }
+            </ul>
+        </p>
+    </div>
+    }
+
+}

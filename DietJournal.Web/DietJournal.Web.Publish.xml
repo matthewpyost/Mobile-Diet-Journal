@@ -86,63 +86,70 @@
     <file relUrl="Views/Account/Register.cshtml" publishTime="09/05/2011 01:01:24" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="07/30/2011 10:51:47" />
-    <file relUrl="Scripts/MicrosoftAjax.js" publishTime="07/30/2011 10:51:43" />
+    <file relUrl="Views/Exercise/Favorites.cshtml" publishTime="12/21/2011 22:06:59" />
     <file relUrl="Content/themes/base/jquery.ui.accordion.css" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Views/Home/_Layout.cshtml" publishTime="07/31/2011 20:21:04" />
     <file relUrl="Views/Account/LogOn.cshtml" publishTime="09/04/2011 22:47:27" />
-    <file relUrl="Views/Food/SelectFavorite.cshtml" publishTime="12/18/2011 23:02:57" />
+    <file relUrl="Views/Food/SelectFavorite.cshtml" publishTime="12/23/2011 18:20:41" />
     <file relUrl="Views/Shared/_Dialog.cshtml" publishTime="10/12/2011 16:47:49" />
     <file relUrl="bin/EntityFramework.xml" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Content/themes/base/jquery.ui.button.css" publishTime="07/30/2011 10:51:47" />
-    <file relUrl="Web.config" publishTime="12/19/2011 00:12:07" />
+    <file relUrl="Web.config" publishTime="12/24/2011 23:50:42" />
+    <file relUrl="Scripts/MicrosoftAjax.js" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Content/themes/base/images/ui-icons_cd0a0a_256x240.png" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Content/themes/base/jquery.ui.theme.css" publishTime="07/30/2011 10:51:46" />
     <file relUrl="Views/Journal/Settings.cshtml" publishTime="10/29/2011 23:16:13" />
-    <file relUrl="bin/DietJournal.Web.dll" publishTime="12/19/2011 00:03:05" />
-    <file relUrl="Global.asax" publishTime="07/30/2011 10:51:43" />
+    <file relUrl="bin/DietJournal.Web.dll" publishTime="12/26/2011 20:49:11" />
+    <file relUrl="Views/Journal/WeightEntry.cshtml" publishTime="10/30/2011 00:13:36" />
     <file relUrl="Content/jquery.mobile.datebox.min.css" publishTime="09/03/2011 22:54:02" />
-    <file relUrl="Views/Food/Entry.cshtml" publishTime="12/18/2011 23:02:03" />
+    <file relUrl="Views/Food/Entry.cshtml" publishTime="12/21/2011 22:15:19" />
     <file relUrl="Content/themes/base/images/ui-icons_2e83ff_256x240.png" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Views/Water/Entry.cshtml" publishTime="10/11/2011 22:08:58" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Views/Food/EntryType.cshtml" publishTime="10/09/2011 17:59:23" />
     <file relUrl="Views/Water/Index.cshtml" publishTime="10/12/2011 17:00:07" />
     <file relUrl="Content/themes/base/jquery.ui.slider.css" publishTime="07/30/2011 10:51:46" />
+    <file relUrl="Views/Reports/ShareReport.cshtml" publishTime="12/26/2011 19:05:33" />
     <file relUrl="Scripts/jquery.unobtrusive-ajax.min.js" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Views/Account/ProfileSettings.cshtml" publishTime="09/05/2011 00:45:42" />
     <file relUrl="Views/Home/Supplements.cshtml" publishTime="07/31/2011 16:58:49" />
-    <file relUrl="Views/Journal/Index.cshtml" publishTime="10/30/2011 00:06:13" />
+    <file relUrl="Scripts/Site.js" publishTime="09/05/2011 00:37:41" />
+    <file relUrl="Views/Journal/Index.cshtml" publishTime="12/21/2011 21:26:32" />
     <file relUrl="Views/Home/Feedback.cshtml" publishTime="07/31/2011 16:58:54" />
     <file relUrl="Scripts/jquery-1.5.1.js" publishTime="07/30/2011 10:51:45" />
     <file relUrl="Content/themes/base/jquery.ui.core.css" publishTime="07/30/2011 10:51:47" />
-    <file relUrl="Scripts/modernizr-1.7.min.js" publishTime="07/30/2011 10:51:48" />
+    <file relUrl="Views/Food/FavoriteSearchResults.cshtml" publishTime="12/18/2011 23:07:23" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Content/themes/base/jquery.ui.base.css" publishTime="07/30/2011 10:51:47" />
-    <file relUrl="Views/Journal/Reports.cshtml" publishTime="10/29/2011 23:34:29" />
-    <file relUrl="Views/Home/Conditions.cshtml" publishTime="07/31/2011 16:58:54" />
-    <file relUrl="Views/Journal/Favorites.cshtml" publishTime="12/18/2011 22:41:04" />
-    <file relUrl="Content/themes/base/jquery.ui.datepicker.css" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Scripts/jquery.mobile.datebox.min.js" publishTime="09/03/2011 22:53:10" />
-    <file relUrl="bin/DietJournal.Web.pdb" publishTime="12/19/2011 00:03:05" />
+    <file relUrl="Views/Home/Conditions.cshtml" publishTime="07/31/2011 16:58:54" />
+    <file relUrl="Views/Supplements/Favorites.cshtml" publishTime="12/23/2011 19:42:19" />
+    <file relUrl="Content/themes/base/jquery.ui.datepicker.css" publishTime="07/30/2011 10:51:47" />
+    <file relUrl="Scripts/jquery-1.5.1-vsdoc.js" publishTime="07/30/2011 10:51:46" />
+    <file relUrl="bin/DietJournal.Web.pdb" publishTime="12/26/2011 20:49:11" />
     <file relUrl="Content/themes/base/jquery.ui.selectable.css" publishTime="07/30/2011 10:51:46" />
     <file relUrl="Views/Food/About.cshtml" publishTime="10/09/2011 22:46:32" />
     <file relUrl="Content/themes/base/images/ui-icons_222222_256x240.png" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Content/themes/base/jquery.ui.progressbar.css" publishTime="07/30/2011 10:51:46" />
     <file relUrl="packages.config" publishTime="07/30/2011 10:51:48" />
+    <file relUrl="Views/Reports/Index.cshtml" publishTime="12/24/2011 23:30:46" />
+    <file relUrl="Views/Exercise/FavoriteSearchResults.cshtml" publishTime="12/21/2011 22:19:30" />
     <file relUrl="Content/themes/base/images/ui-icons_888888_256x240.png" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Views/Home/Donate.cshtml" publishTime="07/31/2011 16:58:54" />
     <file relUrl="Scripts/jquery-ui-1.8.11.js" publishTime="07/30/2011 10:51:46" />
     <file relUrl="Views/Home/About.cshtml" publishTime="07/31/2011 16:58:54" />
-    <file relUrl="Views/Food/FavoriteSearchResults.cshtml" publishTime="12/18/2011 23:07:23" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Content/themes/base/images/ui-icons_454545_256x240.png" publishTime="07/30/2011 10:51:47" />
+    <file relUrl="Views/Reports/EntryResults.cshtml" publishTime="12/26/2011 19:12:17" />
+    <file relUrl="Views/Reports/EntriesEmail.cshtml" publishTime="12/26/2011 20:37:36" />
     <file relUrl="Views/Supplements/About.cshtml" publishTime="10/28/2011 23:40:12" />
+    <file relUrl="Views/Reports/Entries.cshtml" publishTime="12/26/2011 20:45:21" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="07/30/2011 10:51:46" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="07/30/2011 10:51:47" />
-    <file relUrl="Views/Shared/_Journal.cshtml" publishTime="12/19/2011 00:01:55" />
+    <file relUrl="Views/Shared/_Journal.cshtml" publishTime="12/23/2011 20:11:13" />
     <file relUrl="Content/themes/base/jquery.ui.dialog.css" publishTime="07/30/2011 10:51:46" />
     <file relUrl="Views/Account/ChangePassword.cshtml" publishTime="09/06/2011 22:42:23" />
     <file relUrl="Scripts/jquery-ui-1.8.11.min.js" publishTime="07/30/2011 10:51:46" />
@@ -155,11 +162,11 @@
     <file relUrl="Views/Water/About.cshtml" publishTime="10/28/2011 19:03:35" />
     <file relUrl="Views/Food/Index.cshtml" publishTime="10/12/2011 17:00:31" />
     <file relUrl="Views/Web.config" publishTime="07/30/2011 10:51:43" />
-    <file relUrl="Views/Exercise/Entry.cshtml" publishTime="10/29/2011 00:44:32" />
+    <file relUrl="Views/Exercise/Entry.cshtml" publishTime="12/23/2011 18:05:25" />
     <file relUrl="Content/Site.css" publishTime="09/05/2011 00:43:25" />
-    <file relUrl="Views/Supplements/Entry.cshtml" publishTime="10/29/2011 00:44:58" />
+    <file relUrl="Views/Supplements/FavoriteSearchResults.cshtml" publishTime="12/23/2011 19:01:59" />
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="07/30/2011 10:51:43" />
-    <file relUrl="Scripts/jquery-1.5.1-vsdoc.js" publishTime="07/30/2011 10:51:46" />
+    <file relUrl="Views/Supplements/Entry.cshtml" publishTime="12/23/2011 18:36:05" />
     <file relUrl="bin/EntityFramework.dll" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Views/Home/Privacy.cshtml" publishTime="07/31/2011 16:58:54" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="07/30/2011 10:51:43" />
@@ -167,15 +174,18 @@
     <file relUrl="Views/Exercise/About.cshtml" publishTime="07/31/2011 16:58:54" />
     <file relUrl="Scripts/jquery.unobtrusive-ajax.js" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Content/themes/base/jquery.ui.all.css" publishTime="07/30/2011 10:51:47" />
+    <file relUrl="Views/Supplements/SelectFavorite.cshtml" publishTime="12/23/2011 18:31:51" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="07/30/2011 10:51:43" />
-    <file relUrl="Views/Journal/WeightEntry.cshtml" publishTime="10/30/2011 00:13:36" />
-    <file relUrl="Scripts/Site.js" publishTime="09/05/2011 00:37:41" />
-    <file relUrl="Views/Food/Favorites.cshtml" publishTime="12/18/2011 23:21:51" />
+    <file relUrl="Views/Exercise/SelectFavorite.cshtml" publishTime="12/23/2011 18:20:28" />
+    <file relUrl="Views/Journal/Favorites.cshtml" publishTime="12/18/2011 22:41:04" />
+    <file relUrl="Views/Food/Favorites.cshtml" publishTime="12/20/2011 22:27:43" />
     <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="07/30/2011 10:51:47" />
+    <file relUrl="Scripts/modernizr-1.7.min.js" publishTime="07/30/2011 10:51:48" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="07/30/2011 10:51:46" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="07/30/2011 10:51:47" />
-    <file relUrl="Views/Home/Index.cshtml" publishTime="10/28/2011 23:26:40" />
+    <file relUrl="Views/Home/Index.cshtml" publishTime="12/21/2011 21:17:44" />
+    <file relUrl="Global.asax" publishTime="07/30/2011 10:51:43" />
     <file relUrl="Content/themes/base/jquery.ui.tabs.css" publishTime="07/30/2011 10:51:46" />
     <file relUrl="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="07/30/2011 10:51:47" />
     <file relUrl="Content/themes/base/jquery.ui.autocomplete.css" publishTime="07/30/2011 10:51:47" />

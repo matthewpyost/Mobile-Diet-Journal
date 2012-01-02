@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.IO;
+using System.Configuration;
 
 namespace DietJournal.Web.Controllers
 {
@@ -118,5 +119,49 @@ namespace DietJournal.Web.Controllers
                 return plans;
             }
         }
+
+        //protected override void OnAuthorization(AuthorizationContext filterContext)
+        //{
+        //    //Only check if we are already on a secure connectuion and    
+        //    // we don't have a [RequireHttpsAttribute] defined   
+        //    if (Request.IsSecureConnection)
+        //    {
+        //        var requireHttps = filterContext.ActionDescriptor
+        //                    .GetCustomAttributes(
+        //                       typeof(RequireHttpsAttribute), false)
+        //                    .Count() >= 1;
+
+        //        //If we don't need SSL and we are not on a child action   
+        //        if (!requireHttps && !filterContext.IsChildAction)
+        //        {
+        //            var uriBuilder = new UriBuilder(Request.Url)
+        //            {
+        //                Scheme = "http",
+        //                Port = 80
+        //            };
+        //            filterContext.Result =
+        //                 this.Redirect(uriBuilder.Uri.AbsoluteUri);
+        //        }
+        //    }
+        //    base.OnAuthorization(filterContext);
+        //}
     }
+
+    //public class BaseSecureController : BaseController
+    //{
+    //    protected override void OnAuthorization(AuthorizationContext filterContext)
+    //    {
+    //        if (bool.Parse(ConfigurationManager.AppSettings["SecureEnabled"]) && !Request.IsSecureConnection)
+    //        {
+    //            var secureUrl = ConfigurationManager.AppSettings["SecureUrl"];
+    //            if (string.IsNullOrEmpty(secureUrl))
+    //                throw new ConfigurationErrorsException("SecureUrl appSetting has not been set in the configuration file.");
+
+    //            secureUrl = String.Concat(secureUrl, Request.Url.PathAndQuery);
+    //            filterContext.Result =
+    //                 this.Redirect(secureUrl);
+    //        }
+    //        base.OnAuthorization(filterContext);
+    //    }
+    //}
 }

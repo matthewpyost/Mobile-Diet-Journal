@@ -34,12 +34,25 @@ namespace DietJournal.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var smtp = new System.Net.Mail.SmtpClient())
+                try
                 {
-                    var message = new System.Net.Mail.MailMessage(!String.IsNullOrEmpty(model.EmailAddress) ? model.EmailAddress : "support@fastdietjournal.com", "support@fastdietjournal.com");
-                    message.Subject = "Feedback Comment";
-                    message.Body = model.Comments;
-                    smtp.Send(message);
+                    using (var smtp = new System.Net.Mail.SmtpClient())
+                    {
+                        var message =
+                            new System.Net.Mail.MailMessage(
+                                !String.IsNullOrEmpty(model.EmailAddress)
+                                    ? model.EmailAddress
+                                    : "support@fastdietjournal.com", "support@fastdietjournal.com");
+                        message.Subject = "Feedback Comment";
+                        message.Body = model.Comments;
+                        smtp.Send(message);
+                    }
+                    ViewBag.Message = "Your feedback successfully sent.";
+                    ModelState.Clear();
+                }
+                catch(Exception ex)
+                {
+                    ViewBag.Message = "Error sending your feedback. Please try again.";
                 }
             }
 
@@ -52,6 +65,16 @@ namespace DietJournal.Web.Controllers
         }
 
         public ActionResult Conditions()
+        {
+            return View();
+        }
+
+        public ActionResult NotFound()
+        {
+            return View();
+        }
+
+        public ActionResult Error()
         {
             return View();
         }

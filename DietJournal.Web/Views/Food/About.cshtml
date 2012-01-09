@@ -1,6 +1,46 @@
 ﻿@{
     ViewBag.Title = "Food";
     Layout = "~/Views/Home/_Layout.cshtml";
+    ViewBag.PageName = "pgAboutWater";
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#imgFoodEntries").attr("src", '@Url.Content("~/Content/Images/FoodEntries.png")');
+        $("#imgFoodEntries").width($("#entryList").width());
+        
+        $("#imgFoodEntry").attr("src", '@Url.Content("~/Content/Images/FoodEntry.png")');
+        $("#imgFoodEntry").width($("#entryList").width());
+    });
+</script>
+
 <h2>Food</h2>
+
+<p>The food feature of FastDietJournal.com enables you to track your food intake.</p>
+<p>How you track your food intake is all up to you!</p>
+<p>You can either track it according to a dieting program or just use it to record your food intake in general.</p>
+<p>There is even a "Favorites" feature that allows you to create favorite food entries to speed up your food entries even more.</p>
+
+<ul data-role="listview" data-theme="d" data-inset="true">
+    <li><a href="#pgFoodEntries">Sample Food Entries</a></li>
+    <li><a href="#pgFoodEntry">Sample Food Entry</a></li>
+</ul>
+
+@section AdditionalPages
+{
+    <div data-role="page" id="pgFoodEntries">
+        <div data-role="header" data-position="inline" class="header">
+            <a href="#pgAboutWater" data-icon="back" data-direction="reverse">Back</a>
+            <h2>Sample Food Entries</h2>
+        </div>
+        <img id="imgFoodEntries"/>
+    </div>
+    
+    <div data-role="page" id="pgFoodEntry">
+        <div data-role="header" data-position="inline" class="header">
+            <a href="#pgAboutWater" data-icon="back" data-direction="reverse">Back</a>
+            <h2>Sample Food Entry</h2>
+        </div>
+        <img id="imgFoodEntry"/>
+    </div>
+}

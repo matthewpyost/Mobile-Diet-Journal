@@ -1,6 +1,44 @@
 ﻿@{
     ViewBag.Title = "Food";
     Layout = "~/Views/Home/_Layout.cshtml";
+    ViewBag.PageName = "pgAboutFood";
 }
 
-<h2>Food</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#imgWaterEntries").attr("src", '@Url.Content("~/Content/Images/WaterEntries.png")');
+        $("#imgWaterEntries").width($("#entryList").width());
+
+        $("#imgWaterEntry").attr("src", '@Url.Content("~/Content/Images/WaterEntry.png")');
+        $("#imgWaterEntry").width($("#entryList").width());
+    });
+</script>
+
+<h2>Water</h2>
+
+<p>The water feature of FastDietJournal.com enables you to track your water intake throughout the day.</p>
+<p>Water consumption is a key aspect of any diet so why not track it!</p>
+
+<ul data-role="listview" data-theme="d" data-inset="true">
+    <li><a href="#pgWaterEntries">Sample Water Entries</a></li>
+    <li><a href="#pgWaterEntry">Sample Water Entry</a></li>
+</ul>
+
+@section AdditionalPages
+{
+    <div data-role="page" id="pgWaterEntries">
+        <div data-role="header" data-position="inline" class="header">
+            <a href="#pgAboutFood" data-icon="back" data-direction="reverse">Back</a>
+            <h2>Sample Water Entries</h2>
+        </div>
+        <img id="imgWaterEntries"/>
+    </div>
+    
+    <div data-role="page" id="pgWaterEntry">
+        <div data-role="header" data-position="inline" class="header">
+            <a href="#pgAboutFood" data-icon="back" data-direction="reverse">Back</a>
+            <h2></h2>
+        </div>
+        <img id="imgWaterEntry"/>
+    </div>
+}

@@ -3,31 +3,33 @@
     var viewingHome = Request.Path == "/" || Request.Path == "/Home/Index";
 }
 
-<div data-role="page">
+<div data-role="page" id="@(!String.IsNullOrEmpty(ViewBag.PageName) ? ViewBag.PageName : "mainPage")">
     <div data-role="header" data-position="inline" class="header">
         @if (!viewingHome)
         {
-        <a href="@Url.Action("Index","Home")" data-icon="home" data-direction="reverse">Home</a>
+            <a href="@Url.Action("Index","Home")" data-icon="home" data-direction="reverse">Home</a>
         }
         <h2>Fast Diet Journal</h2>
         @if (!viewingHome)
         {
-        <a href="@Url.Action("Register", "Account")" data-icon="plus" class="ui-btn-right" data-transition="slideup">Signup</a>
+            <a href="@Url.Action("Register", "Account")" data-icon="plus" class="ui-btn-right" data-transition="slideup">Signup</a>
         }
         else
         {
-        <a href="@Url.Action("Logon", "Account")" data-icon="check" class="ui-btn-right" data-transition="slideup">Logon</a>
+            <a href="@Url.Action("Logon", "Account")" data-icon="check" class="ui-btn-right" data-transition="slideup">Logon</a>
         }
     </div>
-	<div data-role="content" class="body">	
-		@RenderBody()
-	</div>
-	<div data-role="footer" data-theme="c" data-position="fixed" class="footer">
+    <div data-role="content" class="body">	
+        @RenderBody()
+    </div>
+    <div data-role="footer" data-theme="c" data-position="fixed" class="footer">
         <p>
-        @Html.ActionLink("Privacy Policy", "Privacy", "Home") 
-        @Html.ActionLink("Conditions of Use", "Conditions", "Home") 
-        @Html.ActionLink("Feedback","Feedback","Home")
-        @Html.ActionLink("Donate", "Donate", "Home")
+            @Html.ActionLink("Privacy Policy", "Privacy", "Home") 
+            @Html.ActionLink("Conditions of Use", "Conditions", "Home") 
+            @Html.ActionLink("Feedback","Feedback","Home")
+            @Html.ActionLink("Donate", "Donate", "Home")
         </p>
-	</div>
+    </div>
 </div>
+
+@RenderSection("AdditionalPages", false)
